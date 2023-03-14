@@ -45,8 +45,8 @@ public class App {
     ///// 1. You should be able to create a new solar system with one and only one central star, planets orbiting the star and moons orbiting the planets.
     /////    1.1. All should have a name and an average radius.
     /////       1.1.1. There are max an min limits for the radii depending on the type of heavenly body. You decide these limits, document in your README.md.
-    //    1.2. The planets and the moons have an average orbiting radius.
-    //       1.2.1. The planet and moons have max and min limits on the radius. E.g. the moon cannot be so close so it collides with the planet. You decide these limits, document your README.md
+    /////    1.2. The planets and the moons have an average orbiting radius.
+    /////       1.2.1. The planet and moons have max and min limits on the radius. E.g. the moon cannot be so close so it collides with the planet. You decide these limits, document your README.md
     // 2. You should be able to list all solar systems.
     // 3. You should be able to select a particular solar system see detailed information about it in a hierarchal way. I.e. the star on top then the planet with the respective moons. You should then be able to:
     //    3.1. delete a member of the solar system. 
