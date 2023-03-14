@@ -27,9 +27,24 @@ public class App {
     App theApp = new App();
     System.out.println(theApp.getGreeting());
 
-    // 1. You should be able to create a new solar system with one and only one central star, planets orbiting the star and moons orbiting the planets.
-    //    1.1. All should have a name and an average radius.
-    //       1.1.1. There are max an min limits for the radii depending on the type of heavenly body. You decide these limits, document in your README.md.
+    // Create a new solar system
+    SolarSystem solarSystem = new SolarSystem("Solar System");
+
+    // Add a star to the solar system
+    Star star = solarSystem.addStar("Sun", 696342);
+
+    // Add a planet to the sun
+    Planet planet = star.addPlanet("Earth", 6371, 149600000);
+
+    // Add a moon to the planet
+    Moon moon = planet.addMoon("Moon", 1737, 384400);
+
+    // Print the solar system
+    System.out.println(solarSystem.toString());
+
+    ///// 1. You should be able to create a new solar system with one and only one central star, planets orbiting the star and moons orbiting the planets.
+    /////    1.1. All should have a name and an average radius.
+    /////       1.1.1. There are max an min limits for the radii depending on the type of heavenly body. You decide these limits, document in your README.md.
     //    1.2. The planets and the moons have an average orbiting radius.
     //       1.2.1. The planet and moons have max and min limits on the radius. E.g. the moon cannot be so close so it collides with the planet. You decide these limits, document your README.md
     // 2. You should be able to list all solar systems.
