@@ -48,10 +48,40 @@ public class App {
     // Print the solar system
     System.out.println(solarSystem.toString());
 
+    // Create a new solar system and add it to the arrayList
+    SolarSystem solarSystem2 = new SolarSystem("New Solar System");
+    solarSystemsArrayList.add(solarSystem2);
+
+    // Add a star to the solar system2
+    Star star2 = solarSystem2.addStar("Proxima Centauri", 118000);
+
+    // Add planets to the star
+    Planet planet1 = star2.addPlanet("Proxima b", 6356, 70000000);
+    Planet planet2 = star2.addPlanet("Proxima c", 8495, 125000000);
+
+    // Add moons to planet1
+    Moon moon1 = planet1.addMoon("Proxima b I", 1638, 170000);
+    Moon moon2 = planet1.addMoon("Proxima b II", 1843, 220000);
+    Moon moon3 = planet1.addMoon("Proxima b III", 2381, 280000);
+
+    // Add moons to planet2
+    Moon moon4 = planet2.addMoon("Proxima c I", 1794, 190000);
+    Moon moon5 = planet2.addMoon("Proxima c II", 2098, 230000);
+
     // Loop through the solar systems and print them
     for (SolarSystem system : solarSystemsArrayList) {
       System.out.println(system.toString());
     }
+
+    // ^^ Read from file
+
+    // ^^ While loop that keeps the program running until the user exits
+
+    // ^^ Exit program by breaking the while loop
+
+    // ^^ Then save the solar systems to a file
+
+    // ^^ Then print a goodbye message
 
     ///// 1. You should be able to create a new solar system with one and only one central star, planets orbiting the star and moons orbiting the planets.
     /////    1.1. All should have a name and an average radius.
