@@ -5,6 +5,7 @@
 package assignment4;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * This is the generated Hello World Greeting App.
@@ -75,13 +76,71 @@ public class App {
 
     // ^^ Read from file
 
-    // ^^ While loop that keeps the program running until the user exits
+    // Print a welcome message
+    System.out.println("Welcome to the Solar System .......!");
 
-    // ^^ Exit program by breaking the while loop
+    // Open a scanner 
+    Scanner scanner = new Scanner(System.in);
+
+    // Create a variable to save the user's choice
+    int choice = 0;
+
+    // ^^ While loop that keeps the program running until the user exits
+    while (choice != 6) {
+      // Print a menu
+      System.out.println("Please select an option:");
+      System.out.println("1. List all solar systems");
+      System.out.println("2. Delete a member of the solar system");
+      System.out.println("3. Add a planet");
+      System.out.println("4. Add a moon");
+      System.out.println("5. List all heavenly bodies in order");
+      System.out.println("6. Exit");
+
+      // Save the user's choice
+      choice = scanner.nextInt();
+
+      // Switch statement that handles the user's choice
+      switch (choice) {
+        case 1:
+          // List all solar systems
+          System.out.println("List all solar systems");
+          break;
+        case 2:
+          // Delete a member of the solar system
+          System.out.println("Delete a member of the solar system");
+          break;
+        case 3:
+          // Add a planet
+          System.out.println("Add a planet");
+          break;
+        case 4:
+          // Add a moon
+          System.out.println("Add a moon");
+          break;
+        case 5:
+          // List all heavenly bodies in order
+          System.out.println("List all heavenly bodies in order");
+          break;
+        case 6:
+          // Exit
+          System.out.println("Exit");
+          break;
+        default:
+          // Invalid choice
+          System.out.println("Invalid choice. Please try again.");
+          break;
+      }
+    }
+
+    // ^^ Exit program by breaking the while loop...?
+
+    // Close the scanner
+    scanner.close();
 
     // ^^ Then save the solar systems to a file
 
-    // ^^ Then print a goodbye message
+    // Print a goodbye message
+    System.out.println("Goodbye!");
 
     ///// 1. You should be able to create a new solar system with one and only one central star, planets orbiting the star and moons orbiting the planets.
     /////    1.1. All should have a name and an average radius.
