@@ -30,6 +30,9 @@ public class App {
     App theApp = new App();
     System.out.println(theApp.getGreeting());
 
+    // Create a new instance of the Editor class
+    Editor editor = new Editor();
+
     // Create an arrayList to save all the solar systems
     ArrayList<SolarSystem> solarSystemsArrayList = new ArrayList<>();
 
@@ -85,41 +88,44 @@ public class App {
     // Create a variable to save the user's choice
     int choice = 0;
 
-    // ^^ While loop that keeps the program running until the user exits
+    // While loop that keeps the program running until the user exits
     while (choice != 6) {
       // Print a menu
-      System.out.println("Please select an option:");
+      System.out.println("\nPlease select an option:");
       System.out.println("1. List all solar systems");
       System.out.println("2. Delete a member of the solar system");
       System.out.println("3. Add a planet");
       System.out.println("4. Add a moon");
       System.out.println("5. List all heavenly bodies in order");
-      System.out.println("6. Exit");
+      System.out.println("6. Exit\n");
 
       // Save the user's choice
       choice = scanner.nextInt();
+
+      // ^^ Gör någon felhantering för när användaren inte skriver in ett tal
 
       // Switch statement that handles the user's choice
       switch (choice) {
         case 1:
           // List all solar systems
-          System.out.println("List all solar systems");
+          System.out.println("List all solar systems\n");
+          editor.printAll(solarSystemsArrayList);
           break;
         case 2:
           // Delete a member of the solar system
-          System.out.println("Delete a member of the solar system");
+          System.out.println("Delete a member of the solar system\n");
           break;
         case 3:
           // Add a planet
-          System.out.println("Add a planet");
+          System.out.println("Add a planet\n");
           break;
         case 4:
           // Add a moon
-          System.out.println("Add a moon");
+          System.out.println("Add a moon\n");
           break;
         case 5:
           // List all heavenly bodies in order
-          System.out.println("List all heavenly bodies in order");
+          System.out.println("List all heavenly bodies in order\n");
           break;
         case 6:
           // Exit
@@ -127,7 +133,7 @@ public class App {
           break;
         default:
           // Invalid choice
-          System.out.println("Invalid choice. Please try again.");
+          System.out.println("Invalid choice. Please try again.\n");
           break;
       }
     }

@@ -50,6 +50,10 @@ public class SolarSystem {
     return newStar;
   }
 
+  public Star getStar() {
+    return theStar;
+  }
+
   @Override
   public String toString() {
     // Write the name of the solar system, and then call the toString method of the star
