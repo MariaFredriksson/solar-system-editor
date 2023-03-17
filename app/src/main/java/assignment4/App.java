@@ -118,6 +118,7 @@ public class App {
         case 3:
           // Add a planet
           System.out.println("Add a planet\n");
+          editor.addPlanet(solarSystemsArrayList, scanner);
           break;
         case 4:
           // Add a moon
