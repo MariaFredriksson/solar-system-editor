@@ -65,6 +65,7 @@ public class Editor {
       // If the name, radius or orbit radius is invalid, the message will be printed
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());
+      System.out.println("The planet could not be added.");
     }
 
     // Add a delay before returning to the main menu to make it easier to read the output
@@ -137,6 +138,7 @@ public class Editor {
       // If the name, radius or orbit radius is invalid, the message will be printed
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());
+      System.out.println("The moon could not be added.");
     }
 
     // Ask the user what to do next
@@ -149,6 +151,44 @@ public class Editor {
 
     // If the user wants to return to the main menu, the method just continues and
     // ends, and thus returns to the main menu
+  }
+
+  // Method for creating a new solar system
+  public SolarSystem createSolarSystem(Scanner scanner) {
+    // Ask for the name of the solar system
+    System.out.println("Enter the name of the solar system you want to add:");
+    String solarSystemName = scanner.next();
+    
+    // Ask for the name of the star
+    System.out.println("Information about the star you want to add:");
+    System.out.print("Name: ");
+    String starName = scanner.next();
+    
+    // Ask for the radius of the star
+    // Set the max value to Integer.MAX_VALUE just to set it to a very high number
+    int radius = getIntInput(scanner, "Radius in km: ", "Radius cannot be negative. Please enter a valid radius.", Integer.MAX_VALUE);
+
+    try {
+      // Add a new solar system
+      SolarSystem newSolarSystem = new SolarSystem(solarSystemName);
+
+      // Add the star to the solar system
+      newSolarSystem.addStar(starName, radius);
+
+      // Print a confirmation message that the solar system and the star were added
+      // successfully
+      System.out.println("The solar system " + solarSystemName + " containing the star " + starName + " was successfully added");
+
+      return newSolarSystem;
+
+      // If the name, radius or orbit radius is invalid, the message will be printed
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+      System.out.println("The solar system and the star could not be added.");
+
+      // Return null if the solar system could not be added
+      return null;
+    }
   }
 
   private int subMenu(Scanner scanner, String firstChoice) {
