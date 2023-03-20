@@ -191,6 +191,35 @@ public class Editor {
     }
   }
 
+  public void deleteMember(ArrayList<SolarSystem> solarSystemArrayList, Scanner scanner) {
+    // Ask which member of the solar system the user wants to delete
+    System.out.println("Which member of the solar system do you want to delete?");
+    int counter = 1;
+    ArrayList<HeavenlyBody> allHeavenlyBodies = new ArrayList<HeavenlyBody>();
+
+    // Make a loop to go through the arrayList of solar systems
+    for (int i = 0; i < solarSystemArrayList.size(); i++) {
+      // Make another for loop to print the star, the planets of the star, and the moons of planets
+      for (HeavenlyBody heavenlyBody : solarSystemArrayList.get(i).getStar().getHeavenlyBodies()) {
+        System.out.println(counter + ": " + heavenlyBody.getName());
+        counter++;
+
+        // Add the heavenly body to the arrayList
+        allHeavenlyBodies.add(heavenlyBody);
+      }
+    }
+
+    // Save the index of the member the user wants to delete
+    int memberIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", allHeavenlyBodies.size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    memberIndex--;
+
+    // Delete the member
+    allHeavenlyBodies.remove(memberIndex);
+    System.out.println("The member was successfully deleted.");
+  }
+
   private int subMenu(Scanner scanner, String firstChoice) {
     // Ask what the user wants to do next
     System.out.println("\nWhat do you want to do next?");
