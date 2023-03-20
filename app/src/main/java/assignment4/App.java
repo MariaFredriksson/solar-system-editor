@@ -115,7 +115,15 @@ public class App {
         case 2:
           // Delete a member of the solar system
           System.out.println("Delete a member of the solar system\n");
-          editor.deleteMember(solarSystemsArrayList, scanner);
+          SolarSystem systemToDelete = editor.deleteMember(solarSystemsArrayList, scanner);
+
+          // If the solar system is not null - ie it is a star - remove it from the arrayList
+          if (systemToDelete != null) {
+            solarSystemsArrayList.remove(systemToDelete);
+          }
+
+          // Tell the user that the deletion was successful
+          System.out.println("The member of the solar system was successfully deleted\n");
           break;
         case 3:
           // Add a planet
