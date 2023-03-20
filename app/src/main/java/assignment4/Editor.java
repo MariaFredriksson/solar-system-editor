@@ -1,20 +1,14 @@
 package assignment4;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Editor {
 
-    // ^^ Behövs en constructor...?
+  // ^^ Behövs en constructor...?
 
-    // Method for printing all the solar systems
-    // public void printAll (ArrayList solarSystemsArrayList) {
-    //   for (int i = 0; i < solarSystemsArrayList.size(); i++) {
-    //     System.out.println(solarSystemsArrayList.get(i).toString());
-    //   }
-    // }
-
-  // ^^ Testar en annan metod
+  // Method for printing all the solar systems
   public void printAll (ArrayList<SolarSystem> solarSystemsArrayList) {
     for (SolarSystem oneSystem : solarSystemsArrayList) {
       System.out.println(oneSystem.toString());
@@ -30,34 +24,67 @@ public class Editor {
     }
 
     // Save the index of the star
-    int starIndex = scanner.nextInt() - 1;
+    // Set the index to -1 first so the while loop starts, and will continue running if no valid index is entered
+    int starIndex = -1;
+    while (starIndex < 0 || starIndex >= solarSystemArrayList.size()) {
+      try {
+        starIndex = scanner.nextInt() - 1;
+        if (starIndex < 0 || starIndex >= solarSystemArrayList.size()) {
+          System.out.println("Invalid index. Please enter a valid index.");
+        }
 
-    // ^^ Gör felhantering för när användaren inte skriver in ett nummer, eller ett index som inte finns
+        // If the user writes something else than an integer
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input. Please enter a valid index.");
+
+        // Clear the scanner
+        scanner.next();
+      }
+    }
 
     // Ask for the name of the planet
     System.out.println("Information about the planet you want to add:");
-    System.out.println("Name: ");
+    System.out.print("Name: ");
     String name = scanner.next();
 
     // Ask for the radius of the planet
-    System.out.println("Radius in km: ");
-    int radius = scanner.nextInt();
-
-    // ^^ Felhantering för när användaren inte skriver in ett nummer
+    int radius = -1;
+    while (radius < 0) {
+      try {
+        System.out.print("Radius in km: ");
+        radius = scanner.nextInt();
+        if (radius < 0) {
+          System.out.println("Radius cannot be negative. Please enter a valid radius.");
+        }
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input. Please enter a valid radius.");
+        scanner.next();
+      }
+    }
 
     // Ask for the orbit radius of the planet
-    System.out.println("Orbit radius in km: ");
-    int orbitRadius = scanner.nextInt();
-
-    // ^^ Felhantering för när användaren inte skriver in ett nummer
+    int orbitRadius = -1;
+    while (orbitRadius < 0) {
+      try {
+        System.out.print("Orbit radius in km: ");
+        orbitRadius = scanner.nextInt();
+        if (orbitRadius < 0) {
+          System.out.println("Orbit radius cannot be negative. Please enter a valid orbit radius.");
+        }
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input. Please enter a valid orbit radius.");
+        scanner.next();
+      }
+    }
 
     // Add the planet to the star
-    solarSystemArrayList.get(starIndex).getStar().addPlanet(name, radius, orbitRadius);
+    try {
+      solarSystemArrayList.get(starIndex).getStar().addPlanet(name, radius, orbitRadius);
+      System.out.println("The planet " + name + " was successfully added to the star " + solarSystemArrayList.get(starIndex).getStar().getName());
 
-    // Print out a confirmation message
-    System.out.println("The planet " + name + " was successfully added to the star " + solarSystemArrayList.get(starIndex).getStar().getName());
-
-    // Return the planet
-    // ^^ Behövs en return här...?
+      // If the name, radius or orbit radius is invalid, the message will be printed and the program will return to the main menu
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }
