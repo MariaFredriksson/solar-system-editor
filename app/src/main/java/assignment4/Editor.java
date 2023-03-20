@@ -25,29 +25,6 @@ public class Editor {
     for (int i = 0; i < solarSystemArrayList.size(); i++) {
       System.out.println(i + 1 + ": " + solarSystemArrayList.get(i).getStar().getName());
     }
-    
-    // Set the index to -1 first so the while loop starts, and will continue running if no valid index is entered
-    // int starIndex = -1;
-    // while (!validateIntInput(scanner, "Invalid index. Please enter a valid index.", solarSystemArrayList.size(), starIndex)) {
-      //   System.out.print("Enter the index of the star: ");
-      // }
-      
-      // // Subtract 1 from the index to get the correct index in the arrayList
-      // starIndex--;
-      
-
-      
-      // // Ask for the radius of the planet
-      // int radius = -1;
-      // while (!validateIntInput(scanner, "Radius cannot be negative. Please enter a valid radius.", Integer.MAX_VALUE, radius)) {
-        //   System.out.print("Radius in km: ");
-        // }
-        
-        // // Ask for the orbit radius of the planet
-        // int orbitRadius = -1;
-        // while (!validateIntInput(scanner, "Orbit radius cannot be negative. Please enter a valid orbit radius.", Integer.MAX_VALUE, orbitRadius)) {
-          //   System.out.print("Orbit radius in km: ");
-          // }
           
     // Ask for the index of the star
     // Leave the prompt empty, since the prompt is already printed close to the for loop above
@@ -61,7 +38,8 @@ public class Editor {
     System.out.print("Name: ");
     String name = scanner.next();
 
-    // Ask for the name of the planet
+    // Ask for the radius of the planet
+    // Set the max value to Integer.MAX_VALUE just to set it to a very high number, so the starIndex can have a maxValue that is important to it
     int radius = getIntInput(scanner, "Radius in km: ", "Radius cannot be negative. Please enter a valid radius.", Integer.MAX_VALUE);
     
     // Ask for the orbit radius of the planet
@@ -90,7 +68,10 @@ public class Editor {
   }
 
   private int getIntInput(Scanner scanner, String prompt, String errorMessage, int maxValue) {
+    // Set the index to -1 first so the while loop starts, and will continue running
+    // if no valid index is entered
     int input = -1;
+
     while (input < 0 || input >= maxValue) {
       try {
         System.out.print(prompt);
@@ -98,30 +79,16 @@ public class Editor {
         if (input < 0 || input >= maxValue) {
           System.out.println(errorMessage);
         }
+
+        // If anything else than an integer is entered, the message will be printed and
+        // the program will continue to ask for input 
       } catch (InputMismatchException e) {
         System.out.println("Invalid input. Please enter a valid integer.");
+
+        // Clear the scanner from the invalid input (to avoid an infinite loop) so the scanner can register the next input from the user
         scanner.next();
       }
     }
     return input;
   }
-
-  // public boolean validateIntInput(Scanner scanner, String errorMessage, int maxValue, int input) {
-  //   try {
-  //     input = scanner.nextInt();
-  //     if (input < 0 || input >= maxValue) {
-  //       System.out.println(errorMessage);
-  //       return false;
-  //     }
-  //     return true;
-
-  //     // If anything else than an integer is entered, the message will be printed and the program will continue to ask for input (through the wile loop where the method is called)
-  //   } catch (InputMismatchException e) {
-  //     System.out.println("Invalid input. Please enter a valid index.");
-
-  //     // Clear the scanner from the invalid input, to avoid an infinite loop
-  //     scanner.next();
-  //     return false;
-  //   }
-  // }
 }
