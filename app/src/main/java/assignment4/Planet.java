@@ -18,8 +18,8 @@ public class Planet extends HeavenlyBody {
   }
 
   private void setAvgOrbitRadiusInKm(double orbitRadius) {
-    // The planets must have an orbit radius of at least 18000km and a third of the planet's radius.
-    if (orbitRadius < 18000 || orbitRadius < this.getAvgRadiusInKm() / 3) {
+    // The planets must have an orbit radius of at least 18000km and twice of the planet's radius.
+    if (orbitRadius < 18000 || orbitRadius < this.getAvgRadiusInKm() * 2) {
       throw new IllegalArgumentException("The orbit radius is too small.");
     }
     this.avgOrbitRadiusInKm = orbitRadius;

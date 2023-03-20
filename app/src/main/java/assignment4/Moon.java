@@ -23,8 +23,8 @@ public class Moon extends HeavenlyBody {
   }
 
   private void setAvgOrbitRadiusInKm(double orbitRadius) {
-    // The moons must have an orbit radius of at least 60km and a third of the moon's radius.
-    if (orbitRadius < 60 || orbitRadius < this.getAvgRadiusInKm() / 3) {
+    // The moons must have an orbit radius of at least 60km and a twice of the moon's radius.
+    if (orbitRadius < 60 || orbitRadius < this.getAvgRadiusInKm() * 2) {
       throw new IllegalArgumentException("The orbit radius is too small.");
     }
     this.avgOrbitRadiusInKm = orbitRadius;
