@@ -109,7 +109,7 @@ public class App {
         case 1:
           // List all solar systems
           System.out.println("List all solar systems\n");
-          editor.printAll(solarSystemsArrayList);
+          editor.printAll(solarSystemsArrayList, scanner);
           break;
         case 2:
           // Delete a member of the solar system
