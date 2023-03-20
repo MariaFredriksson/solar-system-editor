@@ -27,6 +27,14 @@ public class Star extends HeavenlyBody {
     return newPlanet;
   }
 
+  public Planet getPlanet(int index) {
+    return planets.get(index);
+  }
+
+  public ArrayList<Planet> getPlanetsArrayList() {
+    return this.planets;
+  }
+
   /**
    * Returns an array of all the heavenly bodies (planets and moons) in this star
    * system.

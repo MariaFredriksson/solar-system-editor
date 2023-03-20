@@ -62,7 +62,7 @@ public class Editor {
       solarSystemArrayList.get(starIndex).getStar().addPlanet(name, radius, orbitRadius);
       System.out.println("The planet " + name + " was successfully added to the star " + solarSystemArrayList.get(starIndex).getStar().getName());
 
-      // If the name, radius or orbit radius is invalid, the message will be printed and the program will return to the main menu
+      // If the name, radius or orbit radius is invalid, the message will be printed
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());
     }
@@ -82,6 +82,75 @@ public class Editor {
     // If the user wants to return to the main menu, the method just continues and ends, and thus returns to the main menu
   }
 
+  // Method for adding a moon
+  public void addMoon(ArrayList<SolarSystem> solarSystemArrayList, Scanner scanner) {
+    // Ask which star to add the moon to
+    System.out.println("Which star do you want to add the moon to?");
+    for (int i = 0; i < solarSystemArrayList.size(); i++) {
+      System.out.println(i + 1 + ": " + solarSystemArrayList.get(i).getStar().getName());
+    }
+
+    // Ask for the index of the star
+    // Leave the prompt empty, since the prompt is already printed close to the for
+    // loop above
+    int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", solarSystemArrayList.size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    starIndex--;
+
+    // Ask which planet to add the moon to
+    System.out.println("Which planet do you want to add the moon to?");
+    for (int i = 0; i < solarSystemArrayList.get(starIndex).getStar().getPlanetsArrayList().size(); i++) {
+      System.out.println(i + 1 + ": " + solarSystemArrayList.get(starIndex).getStar().getPlanetsArrayList().get(i).getName());
+    }
+
+    // Ask for the index of the planet
+    // Leave the prompt empty, since the prompt is already printed close to the for
+    // loop above
+    int planetIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
+        solarSystemArrayList.get(starIndex).getStar().getPlanetsArrayList().size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    planetIndex--;
+
+    // Ask for the name of the moon
+    System.out.println("Information about the moon you want to add:");
+    System.out.print("Name: ");
+    String name = scanner.next();
+
+    // Ask for the radius of the moon
+    // Set the max value to Integer.MAX_VALUE just to set it to a very high number,
+    // so the starIndex and planetIndex can have a maxValue that is important to it
+    int radius = getIntInput(scanner, "Radius in km: ", "Radius cannot be negative. Please enter a valid radius.",
+        Integer.MAX_VALUE);
+
+    // Ask for the orbit radius of the moon
+    int orbitRadius = getIntInput(scanner, "Orbit radius in km: ",
+        "Orbit radius cannot be negative. Please enter a valid orbit radius.", Integer.MAX_VALUE);
+
+    // Add the moon to the planet
+    try {
+      solarSystemArrayList.get(starIndex).getStar().getPlanetsArrayList().get(planetIndex).addMoon(name, radius, orbitRadius);
+      System.out.println("The moon " + name + " was successfully added to the planet "
+          + solarSystemArrayList.get(starIndex).getStar().getPlanetsArrayList().get(planetIndex).getName());
+
+      // If the name, radius or orbit radius is invalid, the message will be printed
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
+
+    // Ask the user what to do next
+    int choice = subMenu(scanner, "Add a moon");
+
+    // If the user wants to add a moon, the method will be called again
+    if (choice == 1) {
+      addMoon(solarSystemArrayList, scanner);
+    }
+
+    // If the user wants to return to the main menu, the method just continues and
+    // ends, and thus returns to the main menu
+  }
+
   private int subMenu(Scanner scanner, String firstChoice) {
     // Ask what the user wants to do next
     System.out.println("\nWhat do you want to do next?");
@@ -89,8 +158,7 @@ public class Editor {
     System.out.println("2: Return to the main menu");
 
     // Save the user's choice
-    // Set the maxValue to 3 since valid inputs are numbers less than 3
-    int choice = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", 3);
+    int choice = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", 2);
 
     return choice;
   }
@@ -108,11 +176,14 @@ public class Editor {
     // if no valid index is entered
     int input = -1;
 
-    while (input <= 0 || input >= maxValue) {
+    // Ask for input until a valid input is entered
+    // Since the indexes that are printed to the user start at 1, the input must be
+    // greater than 0 and less than or equal to the max value
+    while (input <= 0 || input > maxValue) {
       try {
         System.out.print(prompt);
         input = scanner.nextInt();
-        if (input <= 0 || input >= maxValue) {
+        if (input <= 0 || input > maxValue) {
           System.out.println(errorMessage);
         }
 

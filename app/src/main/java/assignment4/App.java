@@ -73,9 +73,9 @@ public class App {
     Moon moon5 = planet2.addMoon("Proxima c II", 2098, 230000);
 
     // Loop through the solar systems and print them
-    for (SolarSystem system : solarSystemsArrayList) {
-      System.out.println(system.toString());
-    }
+    // for (SolarSystem system : solarSystemsArrayList) {
+    //   System.out.println(system.toString());
+    // }
 
     // ^^ Read from file
 
@@ -123,6 +123,7 @@ public class App {
         case 4:
           // Add a moon
           System.out.println("Add a moon\n");
+          editor.addMoon(solarSystemsArrayList, scanner);
           break;
         case 5:
           // List all heavenly bodies in order
@@ -158,12 +159,12 @@ public class App {
     // 3. You should be able to select a particular solar system see detailed information about it in a hierarchal way. I.e. the star on top then the planet with the respective moons. You should then be able to:
     //    3.1. delete a member of the solar system. 
     //       3.1.1.  If the sun is deleted everything is deleted, if a planet is deleted the moons of the planet are deleted.
-    //    3.2. Add a planet or moon to the solar system. The rules should of course apply.
-    //    3.3. You may handle this hierarchically, e.g. selecting the solar system, then selecting a planet, then selecting a moon and performing the above operations.
+    /////    3.2. Add a planet or moon to the solar system. The rules should of course apply.
+    /////    3.3. You may handle this hierarchically, e.g. selecting the solar system, then selecting a planet, then selecting a moon and performing the above operations.
     //    3.4. There should be at least 2 ways of ordering the solar system information.
     //       3.4.1. By size
     //       3.4.2. By orbital radius (closer firs)
-    // 4. You should be able to quit the application
+    ///// 4. You should be able to quit the application
     // 5. The registry information should be loaded from a file `solarsystems.data` **when the application starts**. The format is specified below.
     // 6. The registry information should be saved to a file `solarsystems.data` **when the application exits**. The format is specified below.
     // 7. There should be at least one class diagram showing the application structure with all classes and correct relations between the classes. You do **not** need to add every operation or attribute in the class diagram.
