@@ -216,7 +216,7 @@ public class Editor {
         return systemToDelete;
       case 2:
         // Delete a planet
-        // deletePlanet(solarSystemsArrayList, scanner);
+        deletePlanet(solarSystemsArrayList, scanner);
         break;
       case 3:
         // Delete a moon
@@ -274,6 +274,36 @@ public class Editor {
 
     // Return the solar system the star is in, so the whole solar system can be deleted in App.js
     return solarSystemsArrayList.get(starIndex);
+  }
+
+  private void deletePlanet(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Ask from which star the user wants to delete a planet
+    System.out.println("From which star do you want to delete a planet?");
+    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
+      System.out.println(i + 1 + ": " + solarSystemsArrayList.get(i).getStar().getName());
+    }
+
+    int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
+        solarSystemsArrayList.size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    starIndex--;
+    Star star = solarSystemsArrayList.get(starIndex).getStar();
+
+    // Ask which planet the user wants to delete
+    System.out.println("Which planet do you want to delete?");
+    for (int i = 0; i < star.getPlanetsArrayList().size(); i++) {
+      System.out.println(i + 1 + ": " + star.getPlanetsArrayList().get(i).getName());
+    }
+
+    int planetIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
+        star.getPlanetsArrayList().size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    planetIndex--;
+
+    // Delete the planet
+    star.getPlanetsArrayList().remove(planetIndex);
   }
 
   private int subMenu(Scanner scanner, String firstChoice) {
