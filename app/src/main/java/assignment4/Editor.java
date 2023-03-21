@@ -14,15 +14,9 @@ public class Editor {
       System.out.println(oneSystem.toString());
     }
 
-    // Add delay before returning to the main menu, to make the output easier to read
-    // addDelay(2000);
-
-    // ^^ Or should the user have an option to return to the main menu or list all the solar systems again?
     // Ask the user what to do next
-    int choice = subMenu(scanner, "List all solar systems");
-
     // If the user wants to list all solar systems again, the method will be called again
-    if (choice == 1) {
+    if (subMenu(scanner, "List all solar systems") == 1) {
       printAll(solarSystemsArrayList, scanner);
     }
 
@@ -37,7 +31,7 @@ public class Editor {
     printStars(solarSystemsArrayList);
           
     // Ask for the index of the star
-    // Leave the prompt empty, since the prompt is already printed close to the for loop above
+    // Leave the prompt empty, since the prompt is already printed 
     int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", solarSystemsArrayList.size());
 
     // Subtract 1 from the index to get the correct index in the arrayList
@@ -66,15 +60,9 @@ public class Editor {
       System.out.println("The planet could not be added.");
     }
 
-    // Add a delay before returning to the main menu to make it easier to read the output
-    // addDelay(2000);
-
-    // ^^ Or should the user have an option to return to the main menu or add another planet?
     // Ask the user what to do next
-    int choice = subMenu(scanner, "Add a planet");
-
     // If the user wants to add a planet, the method will be called again
-    if (choice == 1) {
+    if (subMenu(scanner, "Add a planet") == 1) {
       addPlanet(solarSystemsArrayList, scanner);
     }
 
@@ -88,8 +76,7 @@ public class Editor {
     printStars(solarSystemsArrayList);
 
     // Ask for the index of the star
-    // Leave the prompt empty, since the prompt is already printed close to the for
-    // loop above
+    // Leave the prompt empty, since the prompt is already printed 
     int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", solarSystemsArrayList.size());
 
     // Subtract 1 from the index to get the correct index in the arrayList
@@ -102,8 +89,6 @@ public class Editor {
     printPlanets(star);
 
     // Ask for the index of the planet
-    // Leave the prompt empty, since the prompt is already printed close to the for
-    // loop above
     int planetIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
         solarSystemsArrayList.get(starIndex).getStar().getPlanetsArrayList().size());
 
@@ -138,10 +123,8 @@ public class Editor {
     }
 
     // Ask the user what to do next
-    int choice = subMenu(scanner, "Add a moon");
-
     // If the user wants to add a moon, the method will be called again
-    if (choice == 1) {
+    if (subMenu(scanner, "Add a moon") == 1) {
       addMoon(solarSystemsArrayList, scanner);
     }
 
@@ -367,26 +350,6 @@ public class Editor {
     return false;
   }
 
-  private int subMenu(Scanner scanner, String firstChoice) {
-    // Ask what the user wants to do next
-    System.out.println("\nWhat do you want to do next?");
-    System.out.println("1: " + firstChoice);
-    System.out.println("2: Return to the main menu");
-
-    // Save the user's choice
-    int choice = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", 2);
-
-    return choice;
-  }
-
-  // private void addDelay(int milliseconds) {
-  //   try {
-  //     Thread.sleep(milliseconds);
-  //   } catch (InterruptedException e) {
-  //     e.printStackTrace();
-  //   }
-  // }
-
   private int getIntInput(Scanner scanner, String prompt, String errorMessage, int maxValue) {
     // Set the index to -1 first so the while loop starts, and will continue running
     // if no valid index is entered
@@ -413,5 +376,17 @@ public class Editor {
       }
     }
     return input;
+  }
+
+  private int subMenu(Scanner scanner, String firstChoice) {
+    // Ask what the user wants to do next
+    System.out.println("\nWhat do you want to do next?");
+    System.out.println("1: " + firstChoice);
+    System.out.println("2: Return to the main menu");
+
+    // Save the user's choice
+    int choice = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", 2);
+
+    return choice;
   }
 }
