@@ -46,6 +46,10 @@ public class Planet extends HeavenlyBody {
     return newMoon;
   }
 
+  public ArrayList<Moon> getMoonsArrayList() {
+    return this.moons;
+  }
+
   public double getAvgOrbitRadiusInKm() {
     return this.avgOrbitRadiusInKm;
   }

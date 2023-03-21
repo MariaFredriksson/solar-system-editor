@@ -34,9 +34,7 @@ public class Editor {
   public void addPlanet (ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask which star to add the planet to
     System.out.println("Which star do you want to add the planet to?");
-    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
-      System.out.println(i + 1 + ": " + solarSystemsArrayList.get(i).getStar().getName());
-    }
+    printStars(solarSystemsArrayList);
           
     // Ask for the index of the star
     // Leave the prompt empty, since the prompt is already printed close to the for loop above
@@ -87,9 +85,7 @@ public class Editor {
   public void addMoon(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask which star to add the moon to
     System.out.println("Which star do you want to add the moon to?");
-    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
-      System.out.println(i + 1 + ": " + solarSystemsArrayList.get(i).getStar().getName());
-    }
+    printStars(solarSystemsArrayList);
 
     // Ask for the index of the star
     // Leave the prompt empty, since the prompt is already printed close to the for
@@ -99,11 +95,11 @@ public class Editor {
     // Subtract 1 from the index to get the correct index in the arrayList
     starIndex--;
 
+    Star star = solarSystemsArrayList.get(starIndex).getStar();
+
     // Ask which planet to add the moon to
     System.out.println("Which planet do you want to add the moon to?");
-    for (int i = 0; i < solarSystemsArrayList.get(starIndex).getStar().getPlanetsArrayList().size(); i++) {
-      System.out.println(i + 1 + ": " + solarSystemsArrayList.get(starIndex).getStar().getPlanetsArrayList().get(i).getName());
-    }
+    printPlanets(star);
 
     // Ask for the index of the planet
     // Leave the prompt empty, since the prompt is already printed close to the for
@@ -220,7 +216,7 @@ public class Editor {
         break;
       case 3:
         // Delete a moon
-        // deleteMoon(solarSystemsArrayList, scanner);
+        deleteMoon(solarSystemsArrayList, scanner);
         break;
       default:
         // Invalid choice
@@ -262,9 +258,7 @@ public class Editor {
   private SolarSystem deleteStar(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask which star the user wants to delete
     System.out.println("Which star do you want to delete?");
-    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
-      System.out.println(i + 1 + ": " + solarSystemsArrayList.get(i).getStar().getName());
-    }
+    printStars(solarSystemsArrayList);
 
     int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
         solarSystemsArrayList.size());
@@ -279,9 +273,7 @@ public class Editor {
   private void deletePlanet(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask from which star the user wants to delete a planet
     System.out.println("From which star do you want to delete a planet?");
-    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
-      System.out.println(i + 1 + ": " + solarSystemsArrayList.get(i).getStar().getName());
-    }
+    printStars(solarSystemsArrayList);
 
     int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
         solarSystemsArrayList.size());
@@ -292,9 +284,7 @@ public class Editor {
 
     // Ask which planet the user wants to delete
     System.out.println("Which planet do you want to delete?");
-    for (int i = 0; i < star.getPlanetsArrayList().size(); i++) {
-      System.out.println(i + 1 + ": " + star.getPlanetsArrayList().get(i).getName());
-    }
+    printPlanets(star);
 
     int planetIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
         star.getPlanetsArrayList().size());
@@ -304,6 +294,85 @@ public class Editor {
 
     // Delete the planet
     star.getPlanetsArrayList().remove(planetIndex);
+  }
+
+  private void deleteMoon (ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Check that the solarSystemsArrayList is not empty
+    if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
+      System.out.println("There are no suns.");
+      return;
+    }
+
+    // Ask from which star the user wants to delete a moon
+    System.out.println("From which star do you want to delete a moon?");
+    printStars(solarSystemsArrayList);
+
+    int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
+        solarSystemsArrayList.size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    starIndex--;
+    Star star = solarSystemsArrayList.get(starIndex).getStar();
+
+    // Check that the selected star has planets
+    if (star.getPlanetsArrayList() == null || star.getPlanetsArrayList().isEmpty()) {
+      System.out.println("This star has no planets.");
+      // ^^ Maybe ask what the user wants to do next?
+      return;
+    }
+
+    // Ask from which planet the user wants to delete a moon
+    System.out.println("From which planet do you want to delete a moon?");
+    printPlanets(star);
+
+    int planetIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
+        star.getPlanetsArrayList().size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    planetIndex--;
+    Planet planet = star.getPlanetsArrayList().get(planetIndex);
+
+    // Check that the selected planet has moons
+    if (planet.getMoonsArrayList() == null || planet.getMoonsArrayList().isEmpty()) {
+      System.out.println("This planet has no moons.");
+      // ^^ Maybe ask what the user wants to do next?
+      return;
+    }
+
+    // Ask which moon the user wants to delete
+    System.out.println("Which moon do you want to delete?");
+    printMoons(planet);
+
+    int moonIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.",
+        planet.getMoonsArrayList().size());
+
+    // Subtract 1 from the index to get the correct index in the arrayList
+    moonIndex--;
+
+    // Delete the moon
+    planet.getMoonsArrayList().remove(moonIndex);
+  }
+
+  private void printStars (ArrayList<SolarSystem> solarSystemsArrayList) {
+    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
+      System.out.println(i + 1 + ": " + solarSystemsArrayList.get(i).getStar().getName());
+    }
+  }
+
+  private void printPlanets (Star star) {
+    // TODO: Add error handling if the arrayList is empty
+
+    for (int i = 0; i < star.getPlanetsArrayList().size(); i++) {
+      System.out.println(i + 1 + ": " + star.getPlanetsArrayList().get(i).getName());
+    }
+  }
+
+  private void printMoons (Planet planet) {
+    // TODO: Add error handling if the arrayList is empty
+
+    for (int i = 0; i < planet.getMoonsArrayList().size(); i++) {
+      System.out.println(i + 1 + ": " + planet.getMoonsArrayList().get(i).getName());
+    }
   }
 
   private int subMenu(Scanner scanner, String firstChoice) {
