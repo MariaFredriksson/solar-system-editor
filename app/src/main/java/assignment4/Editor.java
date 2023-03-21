@@ -187,7 +187,13 @@ public class Editor {
     }
   }
 
-  public SolarSystem deleteMember(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+  public void deleteMember(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Check that the solarSystemsArrayList is not empty
+    if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
+      System.out.println("There are no solar systems.");
+      return;
+    }
+
     // Print all the members of the solar system
     System.out.println("Here are all the members of the solar systems:\n");
     for (SolarSystem oneSystem : solarSystemsArrayList) {
@@ -206,10 +212,8 @@ public class Editor {
     switch (choice) {
       case 1:
         // Delete a star
-        SolarSystem systemToDelete = deleteStar(solarSystemsArrayList, scanner);
-
-        // Return the solar system the star is in, so the whole solar system can be deleted in App.js
-        return systemToDelete;
+        deleteStar(solarSystemsArrayList, scanner);
+        break;
       case 2:
         // Delete a planet
         deletePlanet(solarSystemsArrayList, scanner);
@@ -224,38 +228,17 @@ public class Editor {
         break;
     } 
 
-    // Return null, since the whole solar system is not deleted
-    return null;
+    // Tell the user that the deletion was successful
+    System.out.println("The member of the solar system was successfully deleted\n");
 
-    // // Ask which member of the solar system the user wants to delete
-    // System.out.println("Which member of the solar system do you want to delete?");
-    // int counter = 1;
-    // ArrayList<HeavenlyBody> allHeavenlyBodies = new ArrayList<HeavenlyBody>();
-
-    // // Make a loop to go through the arrayList of solar systems
-    // for (int i = 0; i < solarSystemArrayList.size(); i++) {
-    //   // Make another for loop to print the star, the planets of the star, and the moons of planets
-    //   for (HeavenlyBody heavenlyBody : solarSystemArrayList.get(i).getStar().getHeavenlyBodies()) {
-    //     System.out.println(counter + ": " + heavenlyBody.getName());
-    //     counter++;
-
-    //     // Add the heavenly body to the arrayList
-    //     allHeavenlyBodies.add(heavenlyBody);
-    //   }
-    // }
-
-    // // Save the index of the member the user wants to delete
-    // int memberIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", allHeavenlyBodies.size());
-
-    // // Subtract 1 from the index to get the correct index in the arrayList
-    // memberIndex--;
-
-    // // Delete the member
-    // allHeavenlyBodies.remove(memberIndex);
-    // System.out.println("The member was successfully deleted.");
+    // Ask what the user wants to do next. If the user still wants to delete
+    // something, call the method again
+    if (subMenu(scanner, "Delete a member of the solar system") == 1) {
+      deleteMember(solarSystemsArrayList, scanner);
+    }
   }
 
-  private SolarSystem deleteStar(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+  private void deleteStar(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask which star the user wants to delete
     System.out.println("Which star do you want to delete?");
     printStars(solarSystemsArrayList);
@@ -266,8 +249,8 @@ public class Editor {
     // Subtract 1 from the index to get the correct index in the arrayList
     starIndex--;
 
-    // Return the solar system the star is in, so the whole solar system can be deleted in App.js
-    return solarSystemsArrayList.get(starIndex);
+    // Delete the star
+    solarSystemsArrayList.remove(starIndex);
   }
 
   private void deletePlanet(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
@@ -281,6 +264,11 @@ public class Editor {
     // Subtract 1 from the index to get the correct index in the arrayList
     starIndex--;
     Star star = solarSystemsArrayList.get(starIndex).getStar();
+
+    // Check that the selected star has planets
+    if (checkEmptyArrayList(solarSystemsArrayList, scanner, "This star has no planets.", star.getPlanetsArrayList())) {
+      return;
+    }
 
     // Ask which planet the user wants to delete
     System.out.println("Which planet do you want to delete?");
@@ -297,12 +285,6 @@ public class Editor {
   }
 
   private void deleteMoon (ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
-    // Check that the solarSystemsArrayList is not empty
-    if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
-      System.out.println("There are no suns.");
-      return;
-    }
-
     // Ask from which star the user wants to delete a moon
     System.out.println("From which star do you want to delete a moon?");
     printStars(solarSystemsArrayList);
@@ -315,9 +297,7 @@ public class Editor {
     Star star = solarSystemsArrayList.get(starIndex).getStar();
 
     // Check that the selected star has planets
-    if (star.getPlanetsArrayList() == null || star.getPlanetsArrayList().isEmpty()) {
-      System.out.println("This star has no planets.");
-      // ^^ Maybe ask what the user wants to do next?
+    if (checkEmptyArrayList(solarSystemsArrayList, scanner, "This star has no planets.", star.getPlanetsArrayList())) {
       return;
     }
 
@@ -333,9 +313,7 @@ public class Editor {
     Planet planet = star.getPlanetsArrayList().get(planetIndex);
 
     // Check that the selected planet has moons
-    if (planet.getMoonsArrayList() == null || planet.getMoonsArrayList().isEmpty()) {
-      System.out.println("This planet has no moons.");
-      // ^^ Maybe ask what the user wants to do next?
+    if (checkEmptyArrayList(solarSystemsArrayList, scanner, "This planet has no moons.", planet.getMoonsArrayList())) {
       return;
     }
 
@@ -360,19 +338,33 @@ public class Editor {
   }
 
   private void printPlanets (Star star) {
-    // TODO: Add error handling if the arrayList is empty
-
     for (int i = 0; i < star.getPlanetsArrayList().size(); i++) {
       System.out.println(i + 1 + ": " + star.getPlanetsArrayList().get(i).getName());
     }
   }
 
   private void printMoons (Planet planet) {
-    // TODO: Add error handling if the arrayList is empty
-
     for (int i = 0; i < planet.getMoonsArrayList().size(); i++) {
       System.out.println(i + 1 + ": " + planet.getMoonsArrayList().get(i).getName());
     }
+  }
+
+  private boolean checkEmptyArrayList(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner, String message, ArrayList<?> list) {
+    if (list == null || list.isEmpty()) {
+      System.out.println(message);
+
+      // Ask what the user wants to do next. If the user still wants to delete
+      // something, call the method again
+      if (subMenu(scanner, "Delete a member of the solar system") == 1) {
+        deleteMember(solarSystemsArrayList, scanner);
+      }
+
+      // Otherwise return to the main menu
+      return true;
+    }
+
+    // If the list is not empty, return false
+    return false;
   }
 
   private int subMenu(Scanner scanner, String firstChoice) {
