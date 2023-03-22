@@ -141,6 +141,7 @@ public class App {
         case 6:
           // List all heavenly bodies in order
           System.out.println("List all heavenly bodies in order\n");
+          editor.orderSystems(solarSystemsArrayList, scanner);
           break;
         case 7:
           // Exit

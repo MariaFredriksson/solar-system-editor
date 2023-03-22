@@ -1,6 +1,7 @@
 package assignment4;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -372,9 +373,74 @@ public class Editor {
     return false;
   }
 
-  public void orderSystems(ArrayList<SolarSystem> solarSystemsArrayList) {
-    // Sort the solar systems by radius (biggest to smallest)
+  public void orderSystems(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Ask the user how the solar systems should be ordered
+    System.out.println("How do you want to order the members of the solar systems?");
+    System.out.println("1: By radius (smallest to largest)");
+    System.out.println("2: By orbital-radius (smallest to largest)");
 
+    int choice = getIntInput(scanner, "", "Invalid input. Please enter a valid input.", 2);
+
+    // Make a switch case for the different orders
+    switch (choice) {
+      case 1:
+        orderSystemsByRadius(solarSystemsArrayList);
+        break;
+      case 2:
+        // orderSystemsByOrbitalRadius(solarSystemsArrayList);
+        break;
+      default:
+        break;
+    }
+  }
+
+  private void orderSystemsByRadius(ArrayList<SolarSystem> solarSystemsArrayList) {
+    int lengthOfAllSolarSystems = 0;
+
+    // Loop through the solar systems arraylist
+    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
+      // Add 1 for the star
+      lengthOfAllSolarSystems++;
+
+      // Get to know how many planets and moons there are by looping through
+      // the planets and add the length of the heavenlyBodiesArray for the planet
+      for (Planet planet : solarSystemsArrayList.get(i).getStar().getPlanetsArrayList()) {
+        lengthOfAllSolarSystems += planet.getHeavenlyBodies().length;
+      }
+    }
+
+    // Make an array that will contain of all the members of the solar systems
+    HeavenlyBody[] allSolarSystemsArray = new HeavenlyBody[lengthOfAllSolarSystems];
+
+    // Keep track of the index of where to add something in the array
+    int index = 0;
+
+    // Loop through the solar systems arraylist and add the members to the array
+    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
+      // Add the star to the array
+      allSolarSystemsArray[index] = solarSystemsArrayList.get(i).getStar();
+      index++;
+
+      // Loop through the planets and add them to the array
+      for (Planet planet : solarSystemsArrayList.get(i).getStar().getPlanetsArrayList()) {
+        allSolarSystemsArray[index] = planet;
+        index++;
+
+        // Loop through the moons and add them to the array
+        for (Moon moon : planet.getMoonsArrayList()) {
+          allSolarSystemsArray[index] = moon;
+          index++;
+        }
+      }
+    }
+
+    // Sort the array by radius
+    Arrays.sort(allSolarSystemsArray);
+
+    // Print the array
+    for (HeavenlyBody heavenlyBody : allSolarSystemsArray) {
+      System.out.println(heavenlyBody.getName() + " - " + heavenlyBody.getAvgRadiusInKm() + " km");
+    }
   }
 
   private int getIntInput(Scanner scanner, String prompt, String errorMessage, int maxValue) {
