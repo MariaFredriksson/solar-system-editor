@@ -1,5 +1,6 @@
 package assignment4;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,9 @@ import java.util.ArrayList;
  */
 public class Planet extends HeavenlyBody implements OrbitingBody {
   private double avgOrbitRadiusInKm;
+
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = 
+      "I want this to be mutable because I want to be able to delete moons.")
   private ArrayList<Moon> moons = new ArrayList<>();
 
   protected Planet(String name, int avgRadiusInKm, double avgOrbitRadiusInKm) {

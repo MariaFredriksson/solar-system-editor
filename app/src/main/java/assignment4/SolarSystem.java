@@ -1,5 +1,7 @@
 package assignment4;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 // import java.util.ArrayList;
 
 /**
@@ -7,8 +9,6 @@ package assignment4;
  */
 public class SolarSystem {
   private String name;
-  //^^ Behöver jag ha denna arrayList...? Det är ju bara en stjärna i varje solar system i denna uppgift...
-  // private ArrayList<HeavenlyBody> heavenlyBodies = new ArrayList<>();
 
   // The only star in the solar system
   private Star theStar;
@@ -38,8 +38,6 @@ public class SolarSystem {
   public Star addStar(String name, int avgRadiusInKm) {
     Star newStar = new Star(name, avgRadiusInKm);
 
-    // heavenlyBodies.add(newStar);
-
     // If there is already a star in the solar system, throw an exception
     if (theStar != null) {
       throw new IllegalArgumentException("There is already a star in the solar system.");
@@ -51,6 +49,8 @@ public class SolarSystem {
     return newStar;
   }
 
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = 
+      "I want this to be mutable because I want to be able to access the methods of the star.")
   public Star getStar() {
     return theStar;
   }

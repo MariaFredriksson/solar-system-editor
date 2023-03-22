@@ -1,11 +1,15 @@
 package assignment4;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
+
 
 /**
  * A class representing a star.
  */
 public class Star extends HeavenlyBody {
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = 
+      "I want this to be mutable because I want to be able to delete planets.")
   private ArrayList<Planet> planets = new ArrayList<>();
 
   public Star(String name, int avgRadiusInKm) {

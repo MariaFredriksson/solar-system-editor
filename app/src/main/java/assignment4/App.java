@@ -84,7 +84,7 @@ public class App {
     System.out.println("Welcome to the Solar System .......!");
 
     // Open a scanner 
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in, "UTF-8");
 
     // Create a variable to save the user's choice
     int choice = 0;
