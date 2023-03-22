@@ -39,7 +39,7 @@ public abstract class HeavenlyBody implements Comparable<HeavenlyBody> {
   // which also MUST have this method (and override the method).
   protected abstract boolean checkAvgRadiusInKm(int radius);
   
-  // Made this method abstract, beacuse it didn't do anything in this class, 
+  // Made this method abstract, because it didn't do anything in this class, 
   // but was very much needed in the child classes.
   @Override
   public abstract String toString();

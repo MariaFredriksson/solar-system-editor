@@ -4,12 +4,21 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * A class representing an editor.
+ */
 public class Editor {
 
   // ^^ Behövs en constructor...?
 
   // Method for printing all the solar systems
-  public void printAll (ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+  public void printAll(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Check that the solarSystemsArrayList is not empty
+    if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
+      System.out.println("There are no solar systems.");
+      return;
+    }
+
     for (SolarSystem oneSystem : solarSystemsArrayList) {
       System.out.println(oneSystem.toString());
     }
@@ -25,14 +34,15 @@ public class Editor {
   }
 
   // Method for adding a planet
-  public void addPlanet (ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+  public void addPlanet(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask which star to add the planet to
     System.out.println("Which star do you want to add the planet to?");
     printStars(solarSystemsArrayList);
           
     // Ask for the index of the star
     // Leave the prompt empty, since the prompt is already printed 
-    int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", solarSystemsArrayList.size());
+    int starIndex = getIntInput(scanner, "", 
+        "Invalid index. Please enter a valid index.", solarSystemsArrayList.size());
 
     // Subtract 1 from the index to get the correct index in the arrayList
     starIndex--;
@@ -43,16 +53,20 @@ public class Editor {
     String name = scanner.next();
 
     // Ask for the radius of the planet
-    // Set the max value to Integer.MAX_VALUE just to set it to a very high number, so the starIndex can have a maxValue that is important to it
-    int radius = getIntInput(scanner, "Radius in km: ", "Radius cannot be negative. Please enter a valid radius.", Integer.MAX_VALUE);
+    // Set the max value to Integer.MAX_VALUE just to set it to a very high number, 
+    // so the starIndex can have a maxValue that is important to it
+    int radius = getIntInput(scanner, "Radius in km: ", 
+        "Radius cannot be negative. Please enter a valid radius.", Integer.MAX_VALUE);
     
     // Ask for the orbit radius of the planet
-    int orbitRadius = getIntInput(scanner, "Orbit radius in km: ", "Orbit radius cannot be negative. Please enter a valid orbit radius.", Integer.MAX_VALUE);
+    int orbitRadius = getIntInput(scanner, "Orbit radius in km: ", 
+        "Orbit radius cannot be negative. Please enter a valid orbit radius.", Integer.MAX_VALUE);
 
     // Add the planet to the star
     try {
       solarSystemsArrayList.get(starIndex).getStar().addPlanet(name, radius, orbitRadius);
-      System.out.println("The planet " + name + " was successfully added to the star " + solarSystemsArrayList.get(starIndex).getStar().getName());
+      System.out.println("The planet " + name + " was successfully added to the star " 
+          + solarSystemsArrayList.get(starIndex).getStar().getName());
 
       // If the name, radius or orbit radius is invalid, the message will be printed
     } catch (IllegalArgumentException e) {
@@ -66,7 +80,8 @@ public class Editor {
       addPlanet(solarSystemsArrayList, scanner);
     }
 
-    // If the user wants to return to the main menu, the method just continues and ends, and thus returns to the main menu
+    // If the user wants to return to the main menu, the method just continues and ends, 
+    // and thus returns to the main menu
   }
 
   // Method for adding a moon
@@ -77,7 +92,8 @@ public class Editor {
 
     // Ask for the index of the star
     // Leave the prompt empty, since the prompt is already printed 
-    int starIndex = getIntInput(scanner, "", "Invalid index. Please enter a valid index.", solarSystemsArrayList.size());
+    int starIndex = getIntInput(scanner, "", 
+        "Invalid index. Please enter a valid index.", solarSystemsArrayList.size());
 
     // Subtract 1 from the index to get the correct index in the arrayList
     starIndex--;
@@ -94,6 +110,8 @@ public class Editor {
 
     // Subtract 1 from the index to get the correct index in the arrayList
     planetIndex--;
+
+    Planet planet = star.getPlanetsArrayList().get(planetIndex);
 
     // Ask for the name of the moon
     System.out.println("Information about the moon you want to add:");
@@ -112,9 +130,8 @@ public class Editor {
 
     // Add the moon to the planet
     try {
-      solarSystemsArrayList.get(starIndex).getStar().getPlanetsArrayList().get(planetIndex).addMoon(name, radius, orbitRadius);
-      System.out.println("The moon " + name + " was successfully added to the planet "
-          + solarSystemsArrayList.get(starIndex).getStar().getPlanetsArrayList().get(planetIndex).getName());
+      planet.addMoon(name, radius, orbitRadius);
+      System.out.println("The moon " + name + " was successfully added to the planet " + planet.getName());
 
       // If the name, radius or orbit radius is invalid, the message will be printed
     } catch (IllegalArgumentException e) {
@@ -145,7 +162,8 @@ public class Editor {
     
     // Ask for the radius of the star
     // Set the max value to Integer.MAX_VALUE just to set it to a very high number
-    int radius = getIntInput(scanner, "Radius in km: ", "Radius cannot be negative. Please enter a valid radius.", Integer.MAX_VALUE);
+    int radius = getIntInput(scanner, "Radius in km: ", 
+        "Radius cannot be negative. Please enter a valid radius.", Integer.MAX_VALUE);
 
     try {
       // Add a new solar system
@@ -156,7 +174,8 @@ public class Editor {
 
       // Print a confirmation message that the solar system and the star were added
       // successfully
-      System.out.println("The solar system " + solarSystemName + " containing the star " + starName + " was successfully added");
+      System.out.println("The solar system " + solarSystemName + " containing the star " 
+          + starName + " was successfully added");
 
       return newSolarSystem;
 
@@ -267,7 +286,7 @@ public class Editor {
     star.getPlanetsArrayList().remove(planetIndex);
   }
 
-  private void deleteMoon (ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+  private void deleteMoon(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask from which star the user wants to delete a moon
     System.out.println("From which star do you want to delete a moon?");
     printStars(solarSystemsArrayList);
@@ -314,25 +333,28 @@ public class Editor {
     planet.getMoonsArrayList().remove(moonIndex);
   }
 
-  private void printStars (ArrayList<SolarSystem> solarSystemsArrayList) {
+  // TODO: Remake the print methods to be more general and one method for all prints
+
+  private void printStars(ArrayList<SolarSystem> solarSystemsArrayList) {
     for (int i = 0; i < solarSystemsArrayList.size(); i++) {
       System.out.println(i + 1 + ": " + solarSystemsArrayList.get(i).getStar().getName());
     }
   }
 
-  private void printPlanets (Star star) {
+  private void printPlanets(Star star) {
     for (int i = 0; i < star.getPlanetsArrayList().size(); i++) {
       System.out.println(i + 1 + ": " + star.getPlanetsArrayList().get(i).getName());
     }
   }
 
-  private void printMoons (Planet planet) {
+  private void printMoons(Planet planet) {
     for (int i = 0; i < planet.getMoonsArrayList().size(); i++) {
       System.out.println(i + 1 + ": " + planet.getMoonsArrayList().get(i).getName());
     }
   }
 
-  private boolean checkEmptyArrayList(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner, String message, ArrayList<?> list) {
+  private boolean checkEmptyArrayList(ArrayList<SolarSystem> solarSystemsArrayList, 
+      Scanner scanner, String message, ArrayList<?> list) {
     if (list == null || list.isEmpty()) {
       System.out.println(message);
 
@@ -348,6 +370,11 @@ public class Editor {
 
     // If the list is not empty, return false
     return false;
+  }
+
+  public void orderSystems(ArrayList<SolarSystem> solarSystemsArrayList) {
+    // Sort the solar systems by radius (biggest to smallest)
+
   }
 
   private int getIntInput(Scanner scanner, String prompt, String errorMessage, int maxValue) {
@@ -371,7 +398,8 @@ public class Editor {
       } catch (InputMismatchException e) {
         System.out.println("Invalid input. Please enter a valid integer.");
 
-        // Clear the scanner from the invalid input (to avoid an infinite loop) so the scanner can register the next input from the user
+        // Clear the scanner from the invalid input (to avoid an infinite loop) 
+        // so the scanner can register the next input from the user
         scanner.next();
       }
     }

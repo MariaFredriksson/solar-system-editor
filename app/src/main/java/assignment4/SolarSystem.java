@@ -2,6 +2,9 @@ package assignment4;
 
 // import java.util.ArrayList;
 
+/**
+ * A class representing a solar system.
+ */
 public class SolarSystem {
   private String name;
   //^^ Behöver jag ha denna arrayList...? Det är ju bara en stjärna i varje solar system i denna uppgift...
@@ -30,8 +33,6 @@ public class SolarSystem {
    *
    * @param name               the name of the star
    * @param avgRadiusInKm      the average radius of the star in kilometers
-   * @param avgOrbitRadiusInKm the average orbit radius of the star in
-   *                           kilometers
    * @return the newly created star object
    */
   public Star addStar(String name, int avgRadiusInKm) {
