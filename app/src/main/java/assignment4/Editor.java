@@ -2,6 +2,7 @@ package assignment4;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -387,7 +388,7 @@ public class Editor {
         orderSystemsByRadius(solarSystemsArrayList);
         break;
       case 2:
-        // orderSystemsByOrbitalRadius(solarSystemsArrayList);
+        orderSystemsByOrbitRadius(solarSystemsArrayList);
         break;
       default:
         break;
@@ -439,7 +440,37 @@ public class Editor {
 
     // Print the array
     for (HeavenlyBody heavenlyBody : allSolarSystemsArray) {
-      System.out.println(heavenlyBody.getName() + " - " + heavenlyBody.getAvgRadiusInKm() + " km");
+      System.out.println(heavenlyBody.getName() + " has a radius of " + heavenlyBody.getAvgRadiusInKm() + " km");
+    }
+  }
+
+  private void orderSystemsByOrbitRadius(ArrayList<SolarSystem> solarSystemsArrayList) {
+    // Create an arraylist that will contain all the planets and moons
+    // (and not the suns, since they don't have an orbital radius)
+    ArrayList<OrbitingBody> allPlanetsAndMoonsArrayList = new ArrayList<>();
+
+    // Loop through the solar systems arraylist
+    for (int i = 0; i < solarSystemsArrayList.size(); i++) {
+      // Loop through the planets of that solar system
+      for (Planet planet : solarSystemsArrayList.get(i).getStar().getPlanetsArrayList()) {
+        // Add the planet to the arraylist
+        allPlanetsAndMoonsArrayList.add(planet);
+
+        // Loop through the moons of that planet
+        for (Moon moon : planet.getMoonsArrayList()) {
+          // Add the moon to the arraylist
+          allPlanetsAndMoonsArrayList.add(moon);
+        }
+      }
+    }
+
+    // Sort the arraylist by orbital radius
+    Collections.sort(allPlanetsAndMoonsArrayList, OrbitingBody.orbitRadiusComparator);
+
+    // Print the arraylist
+    for (OrbitingBody orbitingBody : allPlanetsAndMoonsArrayList) {
+      System.out.println(orbitingBody.getName() + " has an orbit radius of " 
+          + orbitingBody.getAvgOrbitRadiusInKm() + " km");
     }
   }
 

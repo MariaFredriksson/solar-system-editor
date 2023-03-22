@@ -1,6 +1,7 @@
 package assignment4;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * The Planet class represents a planet in the solar system, and extends the
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * It contains information about the average orbit radius of the planet, as well
  * as a list of its moons.
  */
-public class Planet extends HeavenlyBody {
+public class Planet extends HeavenlyBody implements OrbitingBody {
   private double avgOrbitRadiusInKm;
   private ArrayList<Moon> moons = new ArrayList<>();
 
@@ -88,4 +89,17 @@ public class Planet extends HeavenlyBody {
     return "  Planet: " + this.getName() + ", average radius " + this.getAvgRadiusInKm() 
       + "km, average orbit radius " + this.getAvgOrbitRadiusInKm() + "km\n";
   }
+
+  // public static Comparator<OrbitingBody> orbitRadiusComparator = new Comparator<OrbitingBody>() {
+  //   @Override
+  //   public int compare(OrbitingBody hb1, OrbitingBody hb2) {
+  //     return (int) (hb1.getAvgOrbitRadiusInKm() - hb2.getAvgOrbitRadiusInKm());
+  //   }
+  // };
+  // = new Comparator<HeavenlyBody>() {
+  //   @Override
+  //   public int compare(HeavenlyBody hb1, HeavenlyBody hb2) {
+  //     return (int) (hb1.getAvgOrbitRadiusInKm() - hb2.getAvgOrbitRadiusInKm());
+  //   }
+  // };
 }
