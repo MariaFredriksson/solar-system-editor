@@ -11,9 +11,14 @@ import java.util.Scanner;
  */
 public class Editor {
 
-  // ^^ Behövs en constructor...?
+  // ^^ Is a constructor needed...?
 
-  // Method for printing all the solar systems
+  /**
+   * Prints all heavenly bodies in the solar systems.
+   *
+   * @param solarSystemsArrayList - The arrayList containing all the solar systems
+   * @param scanner               - The scanner used to get input from the user
+   */
   public void printAll(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Check that the solarSystemsArrayList is not empty
     if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
@@ -35,7 +40,12 @@ public class Editor {
     // ends, and thus returns to the main menu
   }
 
-  // Method for adding a planet
+  /**
+   * Adds a planet to a star.
+   *
+   * @param solarSystemsArrayList - The arrayList containing all the solar systems
+   * @param scanner               - The scanner used to get input from the user
+   */
   public void addPlanet(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask which star to add the planet to
     System.out.println("Which star do you want to add the planet to?");
@@ -86,7 +96,12 @@ public class Editor {
     // and thus returns to the main menu
   }
 
-  // Method for adding a moon
+  /**
+   * Adds a moon to a planet.
+   *
+   * @param solarSystemsArrayList - The arrayList containing all the solar systems
+   * @param scanner               - The scanner used to get input from the user
+   */
   public void addMoon(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask which star to add the moon to
     System.out.println("Which star do you want to add the moon to?");
@@ -151,7 +166,12 @@ public class Editor {
     // ends, and thus returns to the main menu
   }
 
-  // Method for creating a new solar system
+  /**
+   * Creates a new solar system and returns it.
+   *
+   * @param scanner - The scanner used to get input from the user
+   * @return - The new solar system
+   */
   public SolarSystem createSolarSystem(Scanner scanner) {
     // Ask for the name of the solar system
     System.out.println("Enter the name of the solar system you want to add:");
@@ -191,6 +211,12 @@ public class Editor {
     }
   }
 
+  /**
+   * Deletes a member from a solar system.
+   *
+   * @param solarSystemsArrayList - The arrayList containing all the solar systems
+   * @param scanner               - The scanner used to get input from the user
+   */
   public void deleteMember(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Check that the solarSystemsArrayList is not empty
     if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
@@ -374,6 +400,12 @@ public class Editor {
     return false;
   }
 
+  /**
+   * Method for ordering the members of the solar systems.
+   *
+   * @param solarSystemsArrayList - The arrayList with all the solar systems
+   * @param scanner               - The scanner for getting user input
+   */
   public void orderSystems(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Ask the user how the solar systems should be ordered
     System.out.println("How do you want to order the members of the solar systems?");

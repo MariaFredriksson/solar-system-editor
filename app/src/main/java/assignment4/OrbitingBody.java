@@ -2,6 +2,9 @@ package assignment4;
 
 import java.util.Comparator;
 
+/**
+ * An interface representing an orbiting body.
+ */
 public interface OrbitingBody {
   public String getName();
 

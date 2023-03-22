@@ -1,7 +1,5 @@
 package assignment4;
 
-import java.util.Comparator;
-
 /**
  * A class representing a moon.
  * This class extends the abstract class {@link HeavenlyBody}, which represents all types of celestial objects.
@@ -47,11 +45,4 @@ public class Moon extends HeavenlyBody implements OrbitingBody {
     return "    Moon: " + this.getName() + ", average radius " + this.getAvgRadiusInKm() 
       + "km, average orbit radius " + this.getAvgOrbitRadiusInKm() + "km\n";
   }
-
-  // public static Comparator<OrbitingBody> orbitRadiusComparator = new Comparator<OrbitingBody>() {
-  //   @Override
-  //   public int compare(OrbitingBody hb1, OrbitingBody hb2) {
-  //     return (int) (hb1.getAvgOrbitRadiusInKm() - hb2.getAvgOrbitRadiusInKm());
-  //   }
-  // };
 }
