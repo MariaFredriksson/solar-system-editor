@@ -4,6 +4,9 @@
 
 package assignment4;
 
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,7 +81,12 @@ public class App {
     //   System.out.println(system.toString());
     // }
 
-    // ^^ Read from file
+    // ^^ Read from file´
+    Path path = Paths.get("./data/solarsystems.data");
+    Charset cs = Charset.forName("UTF-8");
+
+    ArrayList<SolarSystem> solarSystemsArrayListFromFile = new ArrayList<>();
+    solarSystemsArrayListFromFile = FileHandler.readFile(path, cs);
 
     // Print a welcome message
     System.out.println("Welcome to the Solar System .......!");
