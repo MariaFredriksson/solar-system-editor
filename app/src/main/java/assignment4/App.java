@@ -96,9 +96,9 @@ public class App {
     solarSystemsArrayListFromFile = FileHandler.readFile(path, cs);
 
     // Loop through the solar systems and print them
-    for (SolarSystem system : solarSystemsArrayListFromFile) {
-      System.out.println(system.toString());
-    }
+    // for (SolarSystem system : solarSystemsArrayListFromFile) {
+    //   System.out.println(system.toString());
+    // }
 
     // TODO: Ändra sen
     solarSystemsArrayList = solarSystemsArrayListFromFile;

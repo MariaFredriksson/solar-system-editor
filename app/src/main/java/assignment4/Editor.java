@@ -407,6 +407,12 @@ public class Editor {
    * @param scanner               - The scanner for getting user input
    */
   public void orderSystems(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Check that the solarSystemsArrayList is not empty
+    if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
+      System.out.println("There are no solar systems.");
+      return;
+    }
+
     // Ask the user how the solar systems should be ordered
     System.out.println("How do you want to order the members of the solar systems?");
     System.out.println("1: By radius (smallest to largest)");
@@ -472,7 +478,7 @@ public class Editor {
 
     // Print the array
     for (HeavenlyBody heavenlyBody : allSolarSystemsArray) {
-      System.out.println(heavenlyBody.getName() + " has a radius of " + heavenlyBody.getAvgRadiusInKm() + " km");
+      System.out.println(heavenlyBody.getName() + " - radius: " + heavenlyBody.getAvgRadiusInKm() + "km");
     }
   }
 
@@ -501,8 +507,8 @@ public class Editor {
 
     // Print the arraylist
     for (OrbitingBody orbitingBody : allPlanetsAndMoonsArrayList) {
-      System.out.println(orbitingBody.getName() + " has an orbit radius of " 
-          + orbitingBody.getAvgOrbitRadiusInKm() + " km");
+      System.out.println(orbitingBody.getName() + " - orbit radius: " 
+          + orbitingBody.getAvgOrbitRadiusInKm() + "km");
     }
   }
 
