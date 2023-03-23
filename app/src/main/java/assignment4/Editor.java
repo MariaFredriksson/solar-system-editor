@@ -431,6 +431,11 @@ public class Editor {
       default:
         break;
     }
+
+    // Ask what the user wants to do next
+    if (subMenu(scanner, "Order the members of the solar systems") == 1) {
+      orderSystems(solarSystemsArrayList, scanner);
+    }
   }
 
   private void orderSystemsByRadius(ArrayList<SolarSystem> solarSystemsArrayList) {

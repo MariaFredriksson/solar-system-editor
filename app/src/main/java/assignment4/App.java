@@ -30,8 +30,8 @@ public class App {
    * @param args Unused program arguments.
    */
   public static void main(String[] args) {
-    App theApp = new App();
-    System.out.println(theApp.getGreeting());
+    // App theApp = new App();
+    // System.out.println(theApp.getGreeting());
 
     // Create a new instance of the Editor class
     Editor editor = new Editor();
@@ -39,72 +39,16 @@ public class App {
     // Create an arrayList to save all the solar systems
     ArrayList<SolarSystem> solarSystemsArrayList = new ArrayList<>();
 
-    // Create a new solar system and add it to the arrayList
-    SolarSystem solarSystem = new SolarSystem("Solar System");
-    solarSystemsArrayList.add(solarSystem);
-
-    // Add a star to the solar system
-    Star star = solarSystem.addStar("Sun", 696342);
-
-    // Add a planet to the sun
-    Planet planet = star.addPlanet("Earth", 6371, 149600000);
-
-    // Add a moon to the planet
-    planet.addMoon("Moon", 1737, 384400);
-
-    // Print the solar system
-    // System.out.println(solarSystem.toString());
-
-    // Create a new solar system and add it to the arrayList
-    SolarSystem solarSystem2 = new SolarSystem("New Solar System");
-    solarSystemsArrayList.add(solarSystem2);
-
-    // Add a star to the solar system2
-    Star star2 = solarSystem2.addStar("Proxima Centauri", 118000);
-
-    // Add planets to the star
-    Planet planet1 = star2.addPlanet("Proxima b", 6356, 70000000);
-
-    // Add moons to planet1
-    planet1.addMoon("Proxima b I", 1638, 170000);
-    planet1.addMoon("Proxima b II", 1843, 220000);
-    planet1.addMoon("Proxima b III", 2381, 280000);
-
-    Planet planet2 = star2.addPlanet("Proxima c", 8495, 125000000);
-
-    // Add moons to planet2
-    planet2.addMoon("Proxima c I", 1794, 190000);
-    planet2.addMoon("Proxima c II", 2098, 230000);
-
-    // Loop through the solar systems and print them
-    // for (SolarSystem system : solarSystemsArrayList) {
-    //   System.out.println(system.toString());
-    // }
-
-    // ^^ Read from file´
-    // Get the parent path
-    // Path parentPath = Paths.getParent();
-
     // Get the root directory
     String rootDirectory = System.getProperty("user.dir");
     Path path = Paths.get(rootDirectory, "app", "src", "main", "java", "assignment4", "data", "solarsystems.data");
-
-    // Path path = Paths.get("../data/solarsystems.data");
     Charset cs = Charset.forName("UTF-8");
-
-    ArrayList<SolarSystem> solarSystemsArrayListFromFile = new ArrayList<>();
-    solarSystemsArrayListFromFile = FileHandler.readFile(path, cs);
-
-    // Loop through the solar systems and print them
-    // for (SolarSystem system : solarSystemsArrayListFromFile) {
-    //   System.out.println(system.toString());
-    // }
-
-    // TODO: Ändra sen
-    solarSystemsArrayList = solarSystemsArrayListFromFile;
+    
+    // Read from file
+    solarSystemsArrayList = FileHandler.readFile(path, cs);
 
     // Print a welcome message
-    System.out.println("Welcome to the Solar System .......!");
+    System.out.println("Welcome to the Solar System Manager!");
 
     // Open a scanner 
     Scanner scanner = new Scanner(System.in, "UTF-8");
@@ -178,12 +122,10 @@ public class App {
       }
     }
 
-    // ^^ Exit program by breaking the while loop...?
-
     // Close the scanner
     scanner.close();
 
-    // ^^ Then save the solar systems to a file
+    // Save the solar systems to a file
     FileHandler.writeFile(path, cs, solarSystemsArrayList);
 
     // Print a goodbye message
@@ -219,12 +161,12 @@ public class App {
     ///// 3.4.1. By size
     ///// 3.4.2. By orbital radius (closer first)
     ///// 4. You should be able to quit the application
-    // 5. The registry information should be loaded from a file solarsystems.data
-    // when the application starts.
-    // The format is specified below.
-    // 6. The registry information should be saved to a file solarsystems.data when
-    // the application exits. The
-    // format is specified below.
+    ///// 5. The registry information should be loaded from a file solarsystems.data
+    ///// when the application starts.
+    ///// The format is specified below.
+    ///// 6. The registry information should be saved to a file solarsystems.data when
+    ///// the application exits. The
+    ///// format is specified below.
     // 7. There should be at least one class diagram showing the application
     // structure with all classes and correct
     // relations between the classes. You do not need to add every operation or
