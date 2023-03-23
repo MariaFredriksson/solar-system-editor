@@ -39,40 +39,55 @@ public class FileHandler {
 
     //^^ Iterera igenom listan och skapa objekt
     // Loop through the list and create objects
-    int index = 0;
+    // int index = 0;
     // Create a star and a planet, so planets and moons can be added to them
     Star star = null;
     Planet planet = null;
 
-    while (lines.get(index) != null) {
-      String[] parts = lines.get(index).split(":");
+    for (int i = 0; i < lines.size(); i++) {
+      // ^^ Kolla så att inte raden är tom
+      // Check if the line is empty
+      if (lines.get(i).isBlank()) {
+        continue;
+      }
+
+      String[] parts = lines.get(i).split(":");
       String name = parts[0];
       int radius = Integer.parseInt(parts[1]);
 
       // If the line contains 2 parts, it's a star
       if (parts.length == 2) {
         // Create a new solar system with the name of the star
-        SolarSystem solarSystem = new SolarSystem(name + " solar system");
+        SolarSystem solarSystem = new SolarSystem(name + " system");
 
         // Add the solar system to the arraylist
         solarSystemsArrayList.add(solarSystem);
 
         // Create a new star and add it to the solar system
-        star = new Star(name, radius);
+        star = solarSystem.addStar(name, radius);
 
       } else if (parts.length == 3) {
         // If the line contains 3 parts, it's either a planet or a moon
         double orbitRadius = Double.parseDouble(parts[2]);
 
-        // If the name starts with one hyphen, it's a planet
-        if (name.startsWith("-")) {
-          // Create a new planet and add it to the star
-          planet = star.addPlanet(name, radius, orbitRadius);
+        // If the name starts with two hyphens, it's a moon
+        // (This if statement needs to be first since the start of the name of the moons is also one hyphen 
+        // (but then another one)), so the moons would otherwise be added as planets)
+        if (name.startsWith("--")) {
+          // Remove the two hyphens from the name
+          name = name.substring(2);
 
-          // If the name starts with two hyphens, it's a moon
-        } else if (name.startsWith("--")) {
           // Create a new moon and add it to the planet
           planet.addMoon(name, radius, orbitRadius);
+          
+          // If the name starts with one hyphen, it's a planet
+        } else if (name.startsWith("-")) {
+          // Remove the hyphen from the name
+          name = name.substring(1);
+
+          // Create a new planet and add it to the star
+          planet = star.addPlanet(name, radius, orbitRadius);
+          
         } else {
           // ^^ What should happen if a line is not formatted correctly?
         }
@@ -80,13 +95,13 @@ public class FileHandler {
         // ^^ What should happen if a line is not formatted correctly?
       }
 
-      index++;
+      // index++;
     }
 
-    // ^^ Test to print the solar systems
-    for (SolarSystem solarSystem : solarSystemsArrayList) {
-      System.out.println(solarSystem.toString());
-    }
+    // // ^^ Test to print the solar systems
+    // for (SolarSystem solarSystem : solarSystemsArrayList) {
+    //   System.out.println(solarSystem.toString());
+    // }
 
     // Return the arraylist with the solar systems
     return solarSystemsArrayList;

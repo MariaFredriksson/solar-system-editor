@@ -82,11 +82,26 @@ public class App {
     // }
 
     // ^^ Read from file´
-    Path path = Paths.get("./data/solarsystems.data");
+    // Get the parent path
+    // Path parentPath = Paths.getParent();
+
+    // Get the root directory
+    String rootDirectory = System.getProperty("user.dir");
+    Path path = Paths.get(rootDirectory, "app", "src", "main", "java", "assignment4", "data", "solarsystems.data");
+
+    // Path path = Paths.get("../data/solarsystems.data");
     Charset cs = Charset.forName("UTF-8");
 
     ArrayList<SolarSystem> solarSystemsArrayListFromFile = new ArrayList<>();
     solarSystemsArrayListFromFile = FileHandler.readFile(path, cs);
+
+    // Loop through the solar systems and print them
+    for (SolarSystem system : solarSystemsArrayListFromFile) {
+      System.out.println(system.toString());
+    }
+
+    // TODO: Ändra sen
+    solarSystemsArrayList = solarSystemsArrayListFromFile;
 
     // Print a welcome message
     System.out.println("Welcome to the Solar System .......!");
