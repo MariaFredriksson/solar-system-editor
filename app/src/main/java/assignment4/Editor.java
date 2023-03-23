@@ -517,7 +517,17 @@ public class Editor {
     }
   }
 
-  private int getIntInput(Scanner scanner, String prompt, String errorMessage, int maxValue) {
+  /**
+   * Method for getting an integer input from the user.
+   *
+   * @param scanner      - The scanner for getting user input
+   * @param prompt       - The message that will be printed to the user
+   * @param errorMessage - The message that will be printed if the user enters an
+   *                     invalid input
+   * @param maxValue     - The max value that the user can enter
+   * @return - The integer that the user entered
+   */
+  public int getIntInput(Scanner scanner, String prompt, String errorMessage, int maxValue) {
     // Set the index to -1 first so the while loop starts, and will continue running
     // if no valid index is entered
     int input = -1;

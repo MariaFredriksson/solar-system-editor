@@ -33,25 +33,26 @@ public class App {
     // App theApp = new App();
     // System.out.println(theApp.getGreeting());
 
-    // Create a new instance of the Editor class
-    Editor editor = new Editor();
-
-    // Create an arrayList to save all the solar systems
-    ArrayList<SolarSystem> solarSystemsArrayList = new ArrayList<>();
-
     // Get the root directory
     String rootDirectory = System.getProperty("user.dir");
+
+    // Create a path to the file
     Path path = Paths.get(rootDirectory, "app", "src", "main", "java", "assignment4", "data", "solarsystems.data");
+
+    // Create a charset
     Charset cs = Charset.forName("UTF-8");
     
-    // Read from file
-    solarSystemsArrayList = FileHandler.readFile(path, cs);
+    // Create an arrayList to save all the solar systems from the file
+    ArrayList<SolarSystem> solarSystemsArrayList = FileHandler.readFile(path, cs);
 
     // Print a welcome message
     System.out.println("Welcome to the Solar System Manager!");
 
     // Open a scanner 
     Scanner scanner = new Scanner(System.in, "UTF-8");
+
+    // Create a new instance of the Editor class
+    Editor editor = new Editor();
 
     // Create a variable to save the user's choice
     int choice = 0;
@@ -69,9 +70,7 @@ public class App {
       System.out.println("7. Exit\n");
 
       // Save the user's choice
-      choice = scanner.nextInt();
-
-      // TODO: Add some error handling for the user's input
+      choice = editor.getIntInput(scanner, "", "Invalid input. Please enter a valid input.", 7);
 
       // Switch statement that handles the user's choice
       switch (choice) {
