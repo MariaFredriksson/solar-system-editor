@@ -184,6 +184,7 @@ public class App {
     scanner.close();
 
     // ^^ Then save the solar systems to a file
+    FileHandler.writeFile(path, cs, solarSystemsArrayList);
 
     // Print a goodbye message
     System.out.println("Goodbye!");

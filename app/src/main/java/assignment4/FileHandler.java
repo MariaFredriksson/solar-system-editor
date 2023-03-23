@@ -87,7 +87,7 @@ public class FileHandler {
 
           // Create a new planet and add it to the star
           planet = star.addPlanet(name, radius, orbitRadius);
-          
+
         } else {
           // ^^ What should happen if a line is not formatted correctly?
         }
@@ -105,6 +105,49 @@ public class FileHandler {
 
     // Return the arraylist with the solar systems
     return solarSystemsArrayList;
+  }
+
+  // TODO write och options create och truncate existing 
+
+  /**
+   * Write a file with the solar systems.
+   *
+   * @param path - Path to the file
+   * @param cs   - Charset
+   * @param solarSystemsArrayList - Arraylist with the solar systems
+   */
+  public static void writeFile(Path path, Charset cs, ArrayList<SolarSystem> solarSystemsArrayList) {
+    // Create a list with the lines to write to the file
+    List<String> lines = new ArrayList<>();
+
+    // Loop through the solar systems
+    for (SolarSystem solarSystem : solarSystemsArrayList) {
+      // Get the star from the solar system
+      Star star = solarSystem.getStar();
+
+      // Add the star to the list
+      lines.add(star.getName() + ":" + star.getAvgRadiusInKm());
+
+      // Loop through the planets
+      for (Planet planet : star.getPlanetsArrayList()) {
+        // Add the planet to the list
+        lines.add("-" + planet.getName() + ":" + planet.getAvgRadiusInKm() + ":" + planet.getAvgOrbitRadiusInKm());
+
+        // Loop through the moons
+        for (Moon moon : planet.getMoonsArrayList()) {
+          // Add the moon to the list
+          lines.add("--" + moon.getName() + ":" + moon.getAvgRadiusInKm() + ":" + moon.getAvgOrbitRadiusInKm());
+        }
+      }
+    }
+
+    // Write the list to the file
+    try {
+      Files.write(path, lines, cs);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   // public static void loadFile(String filename, Registry registry) throws IOException {
