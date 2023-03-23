@@ -175,7 +175,7 @@ public class App {
     // structure with all classes and correct
     // relations between the classes. You do not need to add every operation or
     // attribute in the class diagram.
-    // 8. Basic error handling, i.e. it should not crash. No need for user friendly
-    // error messages.
+    ///// 8. Basic error handling, i.e. it should not crash. No need for user friendly
+    ///// error messages.
   }
 }
