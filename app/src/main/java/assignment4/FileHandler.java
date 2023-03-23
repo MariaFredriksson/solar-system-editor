@@ -1,14 +1,9 @@
 package assignment4;
 
-// import java.io.BufferedReader;
-// import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
-// import java.rmi.registry.Registry;
-// ^^ Tips from Jimmy
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,24 +19,16 @@ public class FileHandler {
    * @return - Arraylist with the solar systems
    */
   public static ArrayList<SolarSystem> readFile(Path path, Charset cs) {
+    // Read all the lines from the file
     List<String> lines = new ArrayList<>();
     try {
-      //! Change path to try to crash the program
-      path = Paths.get("C:\\Users\\jimmy\\Desktop\\solarsystems.data");
-
       lines = Files.readAllLines(path, cs);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
-      // e.printStackTrace();
-      //^^ Vad vill jag göra om jag inte kan läsa min fil?
-      //^^ Kanske starta om på något sätt?
-      //^^ Kankske stänga av hela programmet?
-
       // Throw an exception to quit the program
       throw new RuntimeException("Could not read file");
     }
     
-    // ^^ Skapa en arraylist med solsystemen
+    // Create an arraylist with the solar systems
     ArrayList<SolarSystem> solarSystemsArrayList = new ArrayList<>();
 
     // Create a star and a planet, so planets and moons can be added to them
@@ -55,6 +42,7 @@ public class FileHandler {
         continue;
       }
 
+      // Split the line into parts
       String[] parts = lines.get(i).split(":");
       String name = parts[0];
       int radius = Integer.parseInt(parts[1]);
@@ -93,25 +81,20 @@ public class FileHandler {
           planet = star.addPlanet(name, radius, orbitRadius);
 
         } else {
-          // ^^ What should happen if a line is not formatted correctly?
+          // Throw an exception to quit the program
+          throw new RuntimeException("The file is not formatted correctly. The line " 
+          + (i + 1) + " is not formatted correctly.");
         }
       } else {
-        // ^^ What should happen if a line is not formatted correctly?
+        // Throw an exception to quit the program
+        throw new RuntimeException("The file is not formatted correctly. The line " 
+        + (i + 1) + " is not formatted correctly.");
       }
-
-      // index++;
     }
-
-    // // ^^ Test to print the solar systems
-    // for (SolarSystem solarSystem : solarSystemsArrayList) {
-    //   System.out.println(solarSystem.toString());
-    // }
 
     // Return the arraylist with the solar systems
     return solarSystemsArrayList;
   }
-
-  // TODO write och options create och truncate existing 
 
   /**
    * Write a file with the solar systems.
@@ -149,70 +132,8 @@ public class FileHandler {
     try {
       Files.write(path, lines, cs);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-
       // Throw an exception to quit the program
       throw new RuntimeException("Could not write to file");
     }
   }
-
-  // public static void loadFile(String filename, Registry registry) throws IOException {
-  //   try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-  //     String line;
-  //     while ((line = br.readLine()) != null) {
-  //       String[] parts = line.split(":");
-  //       String name = parts[0];
-  //       double radius = Double.parseDouble(parts[1]);
-  //       if (parts.length == 2) {
-  //         registry.addStar(new Star(name, radius));
-  //       } else if (parts.length == 3) {
-  //         double orbitRadius = Double.parseDouble(parts[2]);
-  //         registry.addPlanet(name, radius, orbitRadius);
-  //       } else if (parts.length == 4) {
-  //         double orbitRadius = Double.parseDouble(parts[3]);
-  //         registry.addMoon(parts[1], name, radius, orbitRadius);
-  //       }
-  //     }
-  //   }
-  // }
-
-  // private static void parseCelestialObjects(String[] parts, int startIndex, Registry registry,
-  //     CelestialObject parent) {
-  //   for (int i = startIndex; i < parts.length; i += 2) {
-  //     String name = parts[i];
-  //     double radius = Double.parseDouble(parts[i + 1]);
-  //     if (i == startIndex) {
-  //       registry.addPlanet(name, radius, parent);
-  //     } else {
-  //       registry.addMoon(name, radius, parent);
-  //     }
-  //     CelestialObject celestialObject = registry.getCelestialObject(name);
-  //     parseCelestialObjects(parts, i + 2, registry, celestialObject);
-  //   }
-  // }
-
-  // public static void saveRegistry(String filename, Registry registry) throws IOException {
-  //   try (FileOutputStream fos = new FileOutputStream(filename);
-  //       ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-  //     oos.writeObject(registry);
-  //   }
-  // }
-
-  // public static void saveFile(String filename, Registry registry) throws IOException {
-  //   try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-  //     for (Star star : registry.getStars()) {
-  //       bw.write(star.getName() + ":" + star.getAvgRadiusInKm());
-  //       bw.newLine();
-  //       for (Planet planet : star.getPlanetsArrayList()) {
-  //         bw.write(planet.getName() + ":" + planet.getAvgRadiusInKm() + ":" + planet.getAvgOrbitRadiusInKm());
-  //         bw.newLine();
-  //         for (Moon moon : planet.getMoonsArrayList()) {
-  //           bw.write(moon.getName() + ":" + moon.getAvgRadiusInKm() + ":" + moon.getAvgOrbitRadiusInKm());
-  //           bw.newLine();
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 }
