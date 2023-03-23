@@ -33,102 +33,107 @@ public class App {
     // App theApp = new App();
     // System.out.println(theApp.getGreeting());
 
-    // Get the root directory
-    String rootDirectory = System.getProperty("user.dir");
+    try {
+      // Get the root directory
+      String rootDirectory = System.getProperty("user.dir");
 
-    // Create a path to the file
-    Path path = Paths.get(rootDirectory, "app", "src", "main", "java", "assignment4", "data", "solarsystems.data");
+      // Create a path to the file
+      Path path = Paths.get(rootDirectory, "app", "src", "main", "java", "assignment4", "data", "solarsystems.data");
 
-    // Create a charset
-    Charset cs = Charset.forName("UTF-8");
-    
-    // Create an arrayList to save all the solar systems from the file
-    ArrayList<SolarSystem> solarSystemsArrayList = FileHandler.readFile(path, cs);
+      // Create a charset
+      Charset cs = Charset.forName("UTF-8");
 
-    // Print a welcome message
-    System.out.println("Welcome to the Solar System Manager!");
+      // Create an arrayList to save all the solar systems from the file
+      ArrayList<SolarSystem> solarSystemsArrayList = FileHandler.readFile(path, cs);
 
-    // Open a scanner 
-    Scanner scanner = new Scanner(System.in, "UTF-8");
+      // Print a welcome message
+      System.out.println("Welcome to the Solar System Manager!");
 
-    // Create a new instance of the Editor class
-    Editor editor = new Editor();
+      // Open a scanner
+      Scanner scanner = new Scanner(System.in, "UTF-8");
 
-    // Create a variable to save the user's choice
-    int choice = 0;
+      // Create a new instance of the Editor class
+      Editor editor = new Editor();
 
-    // While loop that keeps the program running until the user exits
-    while (choice != 7) {
-      // Print a menu
-      System.out.println("\nPlease select an option:");
-      System.out.println("1. List all solar systems");
-      System.out.println("2. Delete a member of the solar system");
-      System.out.println("3. Add a planet");
-      System.out.println("4. Add a moon");
-      System.out.println("5. Create a new solar system and a star");
-      System.out.println("6. List all heavenly bodies in order");
-      System.out.println("7. Exit\n");
+      // Create a variable to save the user's choice
+      int choice = 0;
 
-      // Save the user's choice
-      choice = editor.getIntInput(scanner, "", "Invalid input. Please enter a valid input.", 7);
+      // While loop that keeps the program running until the user exits
+      while (choice != 7) {
+        // Print a menu
+        System.out.println("\nPlease select an option:");
+        System.out.println("1. List all solar systems");
+        System.out.println("2. Delete a member of the solar system");
+        System.out.println("3. Add a planet");
+        System.out.println("4. Add a moon");
+        System.out.println("5. Create a new solar system and a star");
+        System.out.println("6. List all heavenly bodies in order");
+        System.out.println("7. Exit\n");
 
-      // Switch statement that handles the user's choice
-      switch (choice) {
-        case 1:
-          // List all solar systems
-          System.out.println("List all solar systems\n");
-          editor.printAll(solarSystemsArrayList, scanner);
-          break;
-        case 2:
-          // Delete a member of the solar system
-          System.out.println("Delete a member of the solar system\n");
-          editor.deleteMember(solarSystemsArrayList, scanner);
-          break;
-        case 3:
-          // Add a planet
-          System.out.println("Add a planet\n");
-          editor.addPlanet(solarSystemsArrayList, scanner);
-          break;
-        case 4:
-          // Add a moon
-          System.out.println("Add a moon\n");
-          editor.addMoon(solarSystemsArrayList, scanner);
-          break;
-        case 5:
-          System.out.println("Create a new solar system and a star\n");
+        // Save the user's choice
+        choice = editor.getIntInput(scanner, "", "Invalid input. Please enter a valid input.", 7);
 
-          // Create a new solar system
-          SolarSystem newSolarSystem = editor.createSolarSystem(scanner);
+        // Switch statement that handles the user's choice
+        switch (choice) {
+          case 1:
+            // List all solar systems
+            System.out.println("List all solar systems\n");
+            editor.printAll(solarSystemsArrayList, scanner);
+            break;
+          case 2:
+            // Delete a member of the solar system
+            System.out.println("Delete a member of the solar system\n");
+            editor.deleteMember(solarSystemsArrayList, scanner);
+            break;
+          case 3:
+            // Add a planet
+            System.out.println("Add a planet\n");
+            editor.addPlanet(solarSystemsArrayList, scanner);
+            break;
+          case 4:
+            // Add a moon
+            System.out.println("Add a moon\n");
+            editor.addMoon(solarSystemsArrayList, scanner);
+            break;
+          case 5:
+            System.out.println("Create a new solar system and a star\n");
 
-          // If the solar system is not null, add it to the arrayList
-          if (newSolarSystem != null) {
-            solarSystemsArrayList.add(newSolarSystem);
-          }
-          break;
-        case 6:
-          // List all heavenly bodies in order
-          System.out.println("List all heavenly bodies in order\n");
-          editor.orderSystems(solarSystemsArrayList, scanner);
-          break;
-        case 7:
-          // Exit
-          System.out.println("Exit");
-          break;
-        default:
-          // Invalid choice
-          System.out.println("Invalid choice. Please try again.\n");
-          break;
+            // Create a new solar system
+            SolarSystem newSolarSystem = editor.createSolarSystem(scanner);
+
+            // If the solar system is not null, add it to the arrayList
+            if (newSolarSystem != null) {
+              solarSystemsArrayList.add(newSolarSystem);
+            }
+            break;
+          case 6:
+            // List all heavenly bodies in order
+            System.out.println("List all heavenly bodies in order\n");
+            editor.orderSystems(solarSystemsArrayList, scanner);
+            break;
+          case 7:
+            // Exit
+            System.out.println("Exit");
+            break;
+          default:
+            // Invalid choice
+            System.out.println("Invalid choice. Please try again.\n");
+            break;
+        }
       }
+
+      // Close the scanner
+      scanner.close();
+
+      // Save the solar systems to a file
+      FileHandler.writeFile(path, cs, solarSystemsArrayList);
+
+      // Print a goodbye message
+      System.out.println("Goodbye!");
+
+    } catch (Exception e) {
+      System.out.println("An error occurred: " + e.getMessage() + "\nPlease try again.");
     }
-
-    // Close the scanner
-    scanner.close();
-
-    // Save the solar systems to a file
-    FileHandler.writeFile(path, cs, solarSystemsArrayList);
-
-    // Print a goodbye message
-    System.out.println("Goodbye!");
 
     ///// 1. You should be able to create a new solar system with one and only one
     ///// central star, planets orbiting the star

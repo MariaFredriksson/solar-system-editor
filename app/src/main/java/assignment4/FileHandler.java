@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 // ^^ Tips from Jimmy
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,27 +26,30 @@ public class FileHandler {
   public static ArrayList<SolarSystem> readFile(Path path, Charset cs) {
     List<String> lines = new ArrayList<>();
     try {
+      //! Change path to try to crash the program
+      path = Paths.get("C:\\Users\\jimmy\\Desktop\\solarsystems.data");
+
       lines = Files.readAllLines(path, cs);
     } catch (IOException e) {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+      // e.printStackTrace();
       //^^ Vad vill jag göra om jag inte kan läsa min fil?
       //^^ Kanske starta om på något sätt?
       //^^ Kankske stänga av hela programmet?
+
+      // Throw an exception to quit the program
+      throw new RuntimeException("Could not read file");
     }
     
     // ^^ Skapa en arraylist med solsystemen
     ArrayList<SolarSystem> solarSystemsArrayList = new ArrayList<>();
 
-    //^^ Iterera igenom listan och skapa objekt
-    // Loop through the list and create objects
-    // int index = 0;
     // Create a star and a planet, so planets and moons can be added to them
     Star star = null;
     Planet planet = null;
-
+    
+    // Loop through the list and create objects
     for (int i = 0; i < lines.size(); i++) {
-      // ^^ Kolla så att inte raden är tom
       // Check if the line is empty
       if (lines.get(i).isBlank()) {
         continue;
@@ -66,8 +70,8 @@ public class FileHandler {
         // Create a new star and add it to the solar system
         star = solarSystem.addStar(name, radius);
 
-      } else if (parts.length == 3) {
         // If the line contains 3 parts, it's either a planet or a moon
+      } else if (parts.length == 3) {
         double orbitRadius = Double.parseDouble(parts[2]);
 
         // If the name starts with two hyphens, it's a moon
@@ -80,7 +84,7 @@ public class FileHandler {
           // Create a new moon and add it to the planet
           planet.addMoon(name, radius, orbitRadius);
           
-          // If the name starts with one hyphen, it's a planet
+          // If the name starts with only one hyphen, it's a planet
         } else if (name.startsWith("-")) {
           // Remove the hyphen from the name
           name = name.substring(1);
@@ -147,6 +151,9 @@ public class FileHandler {
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+
+      // Throw an exception to quit the program
+      throw new RuntimeException("Could not write to file");
     }
   }
 
