@@ -13,3 +13,9 @@ The orbit radius is calculated from surface to surface.
 ## Suppressed warnings
 There have been some warnings when running gradlew build that have been intentionally suppressed. These have been considering that mutable arrayLists are used and sent as arguments when calling methods. My intention when doing the design was that I should pass mutable variables to the methods, since I want to be able to delete members from these mutable objects, so this decision was intentional. 
 
+
+## Class diagram
+This diagram shows all the classes, and the relations between the classes.
+However, the diagram does not show every operation and attribute.
+
+![class diagram](app/src/main/java/assignment4/classdiagram.JPG)
