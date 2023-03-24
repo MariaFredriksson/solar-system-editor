@@ -344,9 +344,6 @@ public class Editor {
         break;
     } 
 
-    // Tell the user that the deletion was successful
-    System.out.println("The member of the solar system was successfully deleted\n");
-
     // Ask what the user wants to do next. If the user still wants to delete
     // something, call the method again
     if (subMenu(scanner, "Delete a member of the solar system") == 1) {
@@ -367,6 +364,9 @@ public class Editor {
 
     // Delete the star
     solarSystemsArrayList.remove(starIndex);
+    
+    // Tell the user that the deletion was successful
+    System.out.println("The star was successfully deleted\n");
   }
 
   private void deletePlanet(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
@@ -398,6 +398,9 @@ public class Editor {
 
     // Delete the planet
     star.getPlanetsArrayList().remove(planetIndex);
+
+    // Tell the user that the deletion was successful
+    System.out.println("The planet was successfully deleted\n");
   }
 
   private void deleteMoon(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
@@ -445,6 +448,9 @@ public class Editor {
 
     // Delete the moon
     planet.getMoonsArrayList().remove(moonIndex);
+
+    // Tell the user that the deletion was successful
+    System.out.println("The moon was successfully deleted\n");
   }
 
   // TODO: Remake the print methods to be more general and one method for all prints
@@ -471,14 +477,6 @@ public class Editor {
       Scanner scanner, String message, ArrayList<?> list) {
     if (list == null || list.isEmpty()) {
       System.out.println(message);
-
-      // Ask what the user wants to do next. If the user still wants to delete
-      // something, call the method again
-      if (subMenu(scanner, "Delete a member of the solar system") == 1) {
-        deleteMember(solarSystemsArrayList, scanner);
-      }
-
-      // Otherwise return to the main menu
       return true;
     }
 
