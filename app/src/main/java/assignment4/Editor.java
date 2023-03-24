@@ -8,10 +8,6 @@ import java.util.Scanner;
  * A class representing an editor.
  */
 public class Editor {
-
-  // TODO:
-  // ^^ Is a constructor needed...?
-
   /**
    * The main menu of the program.
    *

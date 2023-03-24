@@ -35,6 +35,14 @@ public class App {
     try {
       // Get the root directory
       String rootDirectory = System.getProperty("user.dir");
+      System.out.println("Current dir: " + rootDirectory);
+
+      // It the root directory contains app, remove it and the slash before it
+      if (rootDirectory.contains("app")) {
+        rootDirectory = rootDirectory.substring(0, rootDirectory.indexOf("app") - 1);
+      }
+
+      System.out.println("Current dir: " + rootDirectory);
 
       // Create a path to the file
       Path path = Paths.get(rootDirectory, "app", "src", "main", "java", "assignment4", "data", "solarsystems.data");
@@ -42,8 +50,11 @@ public class App {
       // Create a charset
       Charset cs = Charset.forName("UTF-8");
 
+      // Create a new instance of the FileHandler class
+      FileHandler fileHandler = new FileHandler();
+
       // Create an arrayList to save all the solar systems from the file
-      ArrayList<SolarSystem> solarSystemsArrayList = FileHandler.readFile(path, cs);
+      ArrayList<SolarSystem> solarSystemsArrayList = fileHandler.readFile(path, cs);
 
       // Print a welcome message
       System.out.println("Welcome to the Solar System Manager!");
@@ -55,7 +66,7 @@ public class App {
       solarSystemsArrayList = editor.mainMenu(solarSystemsArrayList);
 
       // Save the solar systems to a file
-      FileHandler.writeFile(path, cs, solarSystemsArrayList);
+      fileHandler.writeFile(path, cs, solarSystemsArrayList);
 
       // Print a goodbye message
       System.out.println("Goodbye!");

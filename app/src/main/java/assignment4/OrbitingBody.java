@@ -12,11 +12,10 @@ public interface OrbitingBody {
 
   // private void setAvgOrbitRadiusInKm(double orbitRadius);
 
-  public static Comparator<OrbitingBody> orbitRadiusComparator = new Comparator<OrbitingBody>() {
+  public Comparator<OrbitingBody> orbitRadiusComparator = new Comparator<OrbitingBody>() {
     @Override
     public int compare(OrbitingBody hb1, OrbitingBody hb2) {
       return (int) (hb1.getAvgOrbitRadiusInKm() - hb2.getAvgOrbitRadiusInKm());
     }
   };
-
 }

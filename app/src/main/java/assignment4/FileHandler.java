@@ -18,7 +18,7 @@ public class FileHandler {
    * @param cs   - Charset
    * @return - Arraylist with the solar systems
    */
-  public static ArrayList<SolarSystem> readFile(Path path, Charset cs) {
+  public ArrayList<SolarSystem> readFile(Path path, Charset cs) {
     try {
       // Read all the lines from the file
       List<String> lines = Files.readAllLines(path, cs);
@@ -104,7 +104,7 @@ public class FileHandler {
    * @param cs   - Charset
    * @param solarSystemsArrayList - Arraylist with the solar systems
    */
-  public static void writeFile(Path path, Charset cs, ArrayList<SolarSystem> solarSystemsArrayList) {
+  public void writeFile(Path path, Charset cs, ArrayList<SolarSystem> solarSystemsArrayList) {
     // Create a list with the lines to write to the file
     List<String> lines = new ArrayList<>();
 
