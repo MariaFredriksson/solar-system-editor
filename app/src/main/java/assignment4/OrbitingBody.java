@@ -10,8 +10,6 @@ public interface OrbitingBody {
 
   public double getAvgOrbitRadiusInKm();
 
-  // private void setAvgOrbitRadiusInKm(double orbitRadius);
-
   public Comparator<OrbitingBody> orbitRadiusComparator = new Comparator<OrbitingBody>() {
     @Override
     public int compare(OrbitingBody hb1, OrbitingBody hb2) {

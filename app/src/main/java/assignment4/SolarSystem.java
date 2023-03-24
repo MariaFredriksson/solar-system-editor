@@ -2,8 +2,6 @@ package assignment4;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-// import java.util.ArrayList;
-
 /**
  * A class representing a solar system.
  */
