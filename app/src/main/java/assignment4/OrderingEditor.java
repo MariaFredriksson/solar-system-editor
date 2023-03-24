@@ -17,8 +17,7 @@ public class OrderingEditor extends Editor {
    */
   public void orderSystems(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
     // Check that the solarSystemsArrayList is not empty
-    if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
-      System.out.println("There are no solar systems.");
+    if (checkEmptyArrayList("There are no solar systems.", solarSystemsArrayList)) {
       return;
     }
 

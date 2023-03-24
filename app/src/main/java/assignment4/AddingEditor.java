@@ -14,6 +14,11 @@ public class AddingEditor extends Editor {
    * @param scanner               - The scanner used to get input from the user
    */
   public void addPlanet(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Check that the solarSystemsArrayList is not empty
+    if (checkEmptyArrayList("There are no solar systems. Please add one.", solarSystemsArrayList)) {
+      return;
+    }
+
     // Ask which star to add the planet to
     System.out.println("Which star do you want to add the planet to?");
     printStars(solarSystemsArrayList);
@@ -71,6 +76,11 @@ public class AddingEditor extends Editor {
    * @param scanner               - The scanner used to get input from the user
    */
   public void addMoon(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // Check that the solarSystemsArrayList is not empty
+    if (checkEmptyArrayList("There are no solar systems. Please add one.", solarSystemsArrayList)) {
+      return;
+    }
+
     // Ask which star to add the moon to
     System.out.println("Which star do you want to add the moon to?");
     printStars(solarSystemsArrayList);

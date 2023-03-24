@@ -112,10 +112,8 @@ public class Editor {
    * @param scanner               - The scanner used to get input from the user
    */
   public void printAll(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
-    // TODO: make a general method for checkEmptySolarSystemsArrayList
     // Check that the solarSystemsArrayList is not empty
-    if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
-      System.out.println("There are no solar systems.");
+    if (checkEmptyArrayList("There are no solar systems.", solarSystemsArrayList)) {
       return;
     }
 
@@ -132,8 +130,6 @@ public class Editor {
     // If the user wants to return to the main menu, the method just continues and
     // ends, and thus returns to the main menu
   }
-
-  // TODO: Remake the print methods to be more general and one method for all prints
 
   /**
    * Prints all the stars in the solar system.
