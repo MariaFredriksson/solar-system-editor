@@ -28,3 +28,7 @@ The results of the build process will be shown to you, and you can dig deeper by
 
 ## Adding existing code
 If you have already worked on the task in whole or part using your own gradle setup we reccomend that you copy only the source code files into this structure. Your source code should be copied into the `app/src/main/java/` folder and you can change the `application` `mainClass` in `build.gradle` accordingly.
+
+## Maria's comments
+This assignment could have been fun, if we had the proper amount of time to do it. I spend two weeks of full time studying to do this assignment - which would correspond to 3 hp - while the assignment only gives 1 hp. 
+So; cut the assignment in half at least, and then it could hopefully be something better than this stressful, ginormous, dreadful...
