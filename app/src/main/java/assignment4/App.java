@@ -8,7 +8,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * This is the generated Hello World Greeting App.
@@ -49,81 +48,11 @@ public class App {
       // Print a welcome message
       System.out.println("Welcome to the Solar System Manager!");
 
-      // Open a scanner
-      Scanner scanner = new Scanner(System.in, "UTF-8");
-
       // Create a new instance of the Editor class
       Editor editor = new Editor();
 
-      // Create a variable to save the user's choice
-      int choice = 0;
-
-      // While loop that keeps the program running until the user exits
-      while (choice != 7) {
-        // Print a menu
-        System.out.println("\nPlease select an option:");
-        System.out.println("1. List all solar systems");
-        System.out.println("2. Delete a member of the solar system");
-        System.out.println("3. Add a planet");
-        System.out.println("4. Add a moon");
-        System.out.println("5. Create a new solar system and a star");
-        System.out.println("6. List all heavenly bodies in order");
-        System.out.println("7. Exit\n");
-
-        // Save the user's choice
-        choice = editor.getIntInput(scanner, "", "Invalid input. Please enter a valid input.", 7);
-
-        // Switch statement that handles the user's choice
-        switch (choice) {
-          case 1:
-            // List all solar systems
-            System.out.println("List all solar systems\n");
-            editor.printAll(solarSystemsArrayList, scanner);
-            break;
-          case 2:
-            // Delete a member of the solar system
-            System.out.println("Delete a member of the solar system\n");
-            editor.deleteMember(solarSystemsArrayList, scanner);
-            break;
-          case 3:
-            // Add a planet
-            System.out.println("Add a planet\n");
-            editor.addPlanet(solarSystemsArrayList, scanner);
-            break;
-          case 4:
-            // Add a moon
-            System.out.println("Add a moon\n");
-            editor.addMoon(solarSystemsArrayList, scanner);
-            break;
-          case 5:
-            System.out.println("Create a new solar system and a star\n");
-
-            // Create a new solar system
-            SolarSystem newSolarSystem = editor.createSolarSystem(scanner);
-
-            // If the solar system is not null, add it to the arrayList
-            if (newSolarSystem != null) {
-              solarSystemsArrayList.add(newSolarSystem);
-            }
-            break;
-          case 6:
-            // List all heavenly bodies in order
-            System.out.println("List all heavenly bodies in order\n");
-            editor.orderSystems(solarSystemsArrayList, scanner);
-            break;
-          case 7:
-            // Exit
-            System.out.println("Exit");
-            break;
-          default:
-            // Invalid choice
-            System.out.println("Invalid choice. Please try again.\n");
-            break;
-        }
-      }
-
-      // Close the scanner
-      scanner.close();
+      // Start the main menu, and when the user exits, save the solar systems to the arraylist
+      solarSystemsArrayList = editor.mainMenu(solarSystemsArrayList);
 
       // Save the solar systems to a file
       FileHandler.writeFile(path, cs, solarSystemsArrayList);

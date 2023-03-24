@@ -11,7 +11,92 @@ import java.util.Scanner;
  */
 public class Editor {
 
+  // TODO:
   // ^^ Is a constructor needed...?
+
+  /**
+   * The main menu of the program.
+   *
+   * @param solarSystemsArrayList - The arrayList containing all the solar systems
+   * @return - The updated arrayList containing all the solar systems
+   */
+  public ArrayList<SolarSystem> mainMenu(ArrayList<SolarSystem> solarSystemsArrayList) {
+    // Open a scanner
+    Scanner scanner = new Scanner(System.in, "UTF-8");
+
+    // Create a variable to save the user's choice
+    int choice = 0;
+
+    // While loop that keeps the program running until the user exits
+    while (choice != 7) {
+      // Print a menu
+      System.out.println("\nPlease select an option:");
+      System.out.println("1. List all solar systems");
+      System.out.println("2. Delete a member of the solar system");
+      System.out.println("3. Add a planet");
+      System.out.println("4. Add a moon");
+      System.out.println("5. Create a new solar system and a star");
+      System.out.println("6. List all heavenly bodies in order");
+      System.out.println("7. Exit\n");
+
+      // Save the user's choice
+      choice = getIntInput(scanner, "", "Invalid input. Please enter a valid input.", 7);
+
+      // Switch statement that handles the user's choice
+      switch (choice) {
+        case 1:
+          // List all solar systems
+          System.out.println("List all solar systems\n");
+          printAll(solarSystemsArrayList, scanner);
+          break;
+        case 2:
+          // Delete a member of the solar system
+          System.out.println("Delete a member of the solar system\n");
+          deleteMember(solarSystemsArrayList, scanner);
+          break;
+        case 3:
+          // Add a planet
+          System.out.println("Add a planet\n");
+          addPlanet(solarSystemsArrayList, scanner);
+          break;
+        case 4:
+          // Add a moon
+          System.out.println("Add a moon\n");
+          addMoon(solarSystemsArrayList, scanner);
+          break;
+        case 5:
+          System.out.println("Create a new solar system and a star\n");
+
+          // Create a new solar system
+          SolarSystem newSolarSystem = createSolarSystem(scanner);
+
+          // If the solar system is not null, add it to the arrayList
+          if (newSolarSystem != null) {
+            solarSystemsArrayList.add(newSolarSystem);
+          }
+          break;
+        case 6:
+          // List all heavenly bodies in order
+          System.out.println("List all heavenly bodies in order\n");
+          orderSystems(solarSystemsArrayList, scanner);
+          break;
+        case 7:
+          // Exit
+          System.out.println("Exit");
+          break;
+        default:
+          // Invalid choice
+          System.out.println("Invalid choice. Please try again.\n");
+          break;
+      }
+    }
+
+    // Close the scanner
+    scanner.close();
+
+    // Return the arrayList
+    return solarSystemsArrayList;
+  }
 
   /**
    * Prints all heavenly bodies in the solar systems.
@@ -20,6 +105,7 @@ public class Editor {
    * @param scanner               - The scanner used to get input from the user
    */
   public void printAll(ArrayList<SolarSystem> solarSystemsArrayList, Scanner scanner) {
+    // TODO: make a general method for checkEmptySolarSystemsArrayList
     // Check that the solarSystemsArrayList is not empty
     if (solarSystemsArrayList == null || solarSystemsArrayList.isEmpty()) {
       System.out.println("There are no solar systems.");

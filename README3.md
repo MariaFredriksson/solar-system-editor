@@ -9,3 +9,8 @@ The planets must have an orbit radius of at least 18000km.
 The moons must have an orbit radius of at least 60km.
 The orbit radius is calculated from surface to surface.
 
+### Suppressed warnings
+There have been some warnings when running gradlew build that have been intentionally suppressed. These have been considering that mutable arrayLists are used and sent as arguments when calling methods. My intention when doing the design was that I should pass mutable variables to the methods, since I want to be able to delete members from these mutable objects, so this decision was intentional. 
+
+<aASDXDF  SEND DATA POST POSTNORD INTE DHL>
+
